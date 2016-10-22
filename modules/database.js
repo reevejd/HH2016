@@ -124,3 +124,66 @@ exports.insertUser = function(userJson) {
     //     }
     // })
 }
+
+
+var DNAtoTraits = function(userJSON) {
+    // takes snps, makes inferences about personality.
+}
+
+var TraittoDNA = function(trait, callback) {
+    pg.connect(process.env.DATABASE_URL, function(err, client) {
+        if (err) throw err;
+
+        client.query('SELECT idUser FROM userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE traits.trait = "' + trait + '"', function (err, result) {
+            if (err) console.log(err);
+
+            client.end(function (err) {
+
+                if (err) throw err;
+
+                else if (result) {
+                    console.log(JSON.stringify(result));
+                    snpFrequencies = {
+                        total: results.rows.length
+                    }
+                    // for each user that has this trait, iterate through their snps and make a counter
+                    for (var i = 0; i < results.rows.length; i++) {
+                        if 
+                    }
+                    
+                }
+
+            });
+        });
+    })
+}
+
+var TraitstoDNA = function(traits) {
+    // takes personality, makes inferences about snps
+    // should take an array of traits, then..
+    // select users who have those snps, 
+    // select traits from those users
+
+    pg.connect(process.env.DATABASE_URL, function (err, client) {
+        if (err) throw err;
+
+        var traitList = "";
+        for (var i = 0; i < traits.length; i++ ) {
+            traitList += "'" + traits[i] + "', "
+        }
+        traitList = traitList.substr(0, traitList.length -2);
+        console.log(traitList);
+
+        
+    });    
+
+}
+
+
+exports.getAssociations = function(userInfo, direction) {
+    if (direction == "DNAtoTraits") {
+        return DNAtoTraits(userInfo);
+    } else if (direction == "TraitstoDNA") {
+        return TraitstoDNA(userInfo);
+    }
+}
