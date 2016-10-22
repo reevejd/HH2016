@@ -87,7 +87,7 @@ var associateUserTraits = function(id, traits) {
     for (var i = 0; i < traits.length; i++ ) {
         traitList += traits[i] + ", "
     }
-    traitList = traitList.substr(0, str.length -2);
+    traitList = traitList.substr(0, traitList.length -2);
     console.log(traitList);
 
     pg.connect(process.env.DATABASE_URL, function (err, client) {
