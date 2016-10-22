@@ -193,7 +193,7 @@ app.post('/test', function(req, res) {
     //db.insertUser(info);
 
 
-    console.log(JSON.stringify(db.getAssociations(['likes to read'], 'TraitstoDNA')));
+    console.log(JSON.stringify(db.getAssociations(['likes to read', 'likes movies', 'likes nothing'], 'TraitstoDNA')));
 
     res.send({status: "Success"});
 });
