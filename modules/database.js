@@ -146,7 +146,7 @@ var TraittoDNA = function(trait, callback) {
                     snpFrequencies = {
                         total: results.rows.length
                     }
-                    // for each user that has this trait, iterate through their snps and make a counter
+                    // for each user that has this trait, iterate through their snps and keep count
                     for (var i = 0; i < results.rows.length; i++) {
                         if (snpFrequencies[results.rows[i].idUser]) {
                             snpFrequencies[results.rows[i].idUser]++
@@ -154,6 +154,10 @@ var TraittoDNA = function(trait, callback) {
                             snpFrequencies[results.rows[i].idUser] = 1;
                         }
                     }
+
+                    callback(snpFrequencies, trait);
+
+
                     
                 }
 
@@ -167,19 +171,23 @@ var TraitstoDNA = function(traits) {
     // should take an array of traits, then..
     // select users who have those snps, 
     // select traits from those users
+    allSnpFrequencies = {};
+    var counter = 0;
 
-    pg.connect(process.env.DATABASE_URL, function (err, client) {
-        if (err) throw err;
+    for (var i = 0; i < traits.length; i++ ) {
+        TraittoDNA(traits[i], function(snpFrequencies, trait) {
+            if (snpFrequencies) {
+                allSnpFrequencies[trait] = snpFrequencies;
+                counter++
+            }
+        })
+    }
 
-        var traitList = "";
-        for (var i = 0; i < traits.length; i++ ) {
-            traitList += "'" + traits[i] + "', "
-        }
-        traitList = traitList.substr(0, traitList.length -2);
-        console.log(traitList);
+    if (counter == traits.length) {
+        return allSnpFrequencies;
+    }
 
-        
-    });    
+   
 
 }
 
