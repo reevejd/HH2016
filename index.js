@@ -179,7 +179,7 @@ app.post('/test', function(req, res) {
 
     var info = {
       id: "user_id_here",
-	    geneticData = {
+	    geneticData: {
         "snp1location": "AT",
         "snp2location": "CG",
 	    },
