@@ -183,7 +183,7 @@ app.post('/test', function(req, res) {
         "snp1location": "AT",
         "snp2location": "CG",
 	    },
-      traits = ["likes to read", "likes romantic movies"]
+      traits: ["likes to read", "likes romantic movies"]
     }
 
     db.insertUser(info);    
