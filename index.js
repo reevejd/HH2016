@@ -2,6 +2,7 @@ var request = require('request'); // for making API calls
 var bodyParser = require('body-parser');
 var pg = require('pg');
 var FormData = require('form-data');
+var db = require('./modules/database.js');
 
 // port = process.env.PORT for deploying on cloud host (need this for heroku anyway, 8080 for local testing
 
@@ -208,6 +209,13 @@ app.post('/test', function(req, res) {
         });
     });
     });
+
+    db.insertUser({
+      traits: ["likes x", "likes y"],
+      geneticData: {
+        id: "this_id"
+      }
+    })
 
     res.send({status: "Success"});
 
