@@ -215,7 +215,8 @@ var TraitstoDNA = function(traits) {
             }
         })
     }
-
+    console.log(counter);
+    console.log('all snp freqs: ' + JSON.stringify(allSnpFrequencies));
     if (counter == traits.length) {
         return allSnpFrequencies;
     }
