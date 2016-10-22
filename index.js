@@ -41,7 +41,7 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
-app.get('/genometoken', function() {
+app.get('/genometoken', function(req, res) {
     console.log(req.params.genometoken);
 })
 
