@@ -245,6 +245,7 @@ var snpToTrait = function(location, basepair) {
                 if (err) throw err;
 
                 else if (result) {
+                    console.log('results:\n'); console.log(JSON.stringify(result));
                     var users = [];
                     for (var i = 0; i < result.rows.length; i++) {
                         if (users.indexOf(result.rows[i].iduser) < 0) {
