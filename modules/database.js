@@ -164,7 +164,7 @@ var TraittoDNA = function(trait, callback) {
                     userList = userList.substr(0, userList.length -2);
                     
                     if (userlist == "") {callback(true, false);}
-}
+
                     console.log(userList);
                     pg.connect(process.env.DATABASE_URL, function(err, client) {
                         if (err) throw err;
