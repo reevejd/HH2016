@@ -39,7 +39,24 @@ app.get('/genometoken', function(req, res) {
     console.log(req.query);
     res.render('index');
 
-    request({
+    request.post('https://api.23andme.com/token/', {
+      form: {
+        client_id : 'be256e46c1e76dd5e8c76197f9168bed' ,
+        client_secret : 'fdc2dceabe85b0336e7bc99b5eb6a4c3' ,
+        grant_type: 'authorization_code',
+        code : req.query ,
+        redirect_uri : 'http://localhost:8080/genometoken',
+        scope :'genomes'
+      },
+      json: true
+    }, function (error, response, body) {
+      // assert.equal(typeof body, 'object')
+      if(error) {
+          console.log(error);
+      } else {
+          console.log(response.statusCode, body);
+    })
+    /*request({
         url: 'https://api.23andme.com/token/', //URL to hit
         //qs: {from: 'blog example', time: +new Date()}, //Query string data
         method: 'POST',
@@ -56,11 +73,11 @@ app.get('/genometoken', function(req, res) {
           redirect_uri : 'http://localhost:8080/genometoken',
           scope :'genomes'
         }*/
-        json: {
+        /*json: {
             "client_id" : "be256e46c1e76dd5e8c76197f9168bed" ,
             "client_secret" : "fdc2dceabe85b0336e7bc99b5eb6a4c3" ,
-            grant_type : req.query,
-            "code" : "zzz" ,
+            'grant_type' : 'authorization_code',
+            "code" : req.query ,
             "redirect_uri" : "http://localhost:8080/genometoken",
             "scope" :"genomes"
         }
@@ -70,7 +87,7 @@ app.get('/genometoken', function(req, res) {
         } else {
             console.log(response.statusCode, body);
     }
-  });
+  });*/
 });
 
 io.on("connection", function(socket) {
