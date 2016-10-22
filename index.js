@@ -40,8 +40,9 @@ app.get('/genometoken', function(req, res) {
             client_secret=fdc2dceabe85b0336e7bc99b5eb6a4c3 ,
             grant_type=authorization_code ,
             code=zzz ,
-            "redirect_uri=http://localhost:8080/genometoken" \
-            "scope=genomes"
+            scope=genomes ,
+            "redirect_uri=http://localhost:8080/genometoken"
+
         }
     }, function(error, response, body){
         if(error) {
