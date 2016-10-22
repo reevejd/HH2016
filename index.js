@@ -2,13 +2,7 @@ var request = require('request'); // for making API calls
 var bodyParser = require('body-parser');
 var pg = require('pg');
 var FormData = require('form-data');
-var options = {
-  uri: 'https://www.googleapis.com/urlshortener/v1/url',
-  method: 'POST',
-  json: {
-    "longUrl": "http://www.google.com/"
-  }
-};
+
 // port = process.env.PORT for deploying on cloud host (need this for heroku anyway, 8080 for local testing
 
 // setting up express 4 server & socket.io
@@ -65,11 +59,11 @@ app.get('/genometoken', function(req, res) {
               headers: { //We can define headers too
                   'Authorization': 'Bearer' + ' ' + accessToken
               }
-          }, function(error, response, bod){
+          }, function(error, response, body){
               if(error) {
                   console.log(error);
               } else {
-                  console.log(response.statusCode, bod);
+                  console.log(response.statusCode, body);
               }
           });
         }
