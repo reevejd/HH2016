@@ -105,6 +105,44 @@ app.get('/genometoken', function(req, res) {
     }
   });*/
 });
+
+/*
+var prompt = require('prompt')
+prompt.start()
+prompt.get(['twitter_handle'], function (err, result) {
+  if (err) { return onErr(err); }
+  console.log('Command-line input received:');
+  console.log('  Username: ' + result.twitter_handle);
+});
+
+function onErr(err) {
+  console.log(err);
+  return 1;
+}
+ */
+
+var connect = require('connect')
+var bodyParser = require('body-parser');
+/** bodyParser.urlencoded(options)
+ * Parses the text as URL encoded data (which is how browsers tend to send form data from regular forms set to POST)
+ * and exposes the resulting object (containing the keys and values) on req.body
+ */
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+/**bodyParser.json(options)
+ * Parses the text as JSON and exposes the resulting object on req.body.
+ */
+app.use(bodyParser.json());
+
+app.post("/", function (req, res) {
+    console.log(req.body.twitter_handle)
+    Twitter_API(req.body.twitter_handle)
+});
+
+
+function Twitter_API(twitter_handle_input){
 //Get twitter information
 var Twitter = require('twitter');
 
@@ -122,9 +160,10 @@ var client = new Twitter({
 });
 
 var text_tweets = '' //body of text to send to watson API
-var input_user_name = '@paultaufalele' //Store the user input twitter handle
+//var input_user_name = '@paultaufalele' //Store the user input twitter handle
+var input_screen_name = twitter_handle_input
 var number_of_tweets = 200 //Set number of tweets attempting to pull
-var params = {screen_name: input_user_name, count : number_of_tweets, include_rts: false};
+var params = {screen_name: input_screen_name, count : number_of_tweets, include_rts: false};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if(error){
     console.log(error)
@@ -140,7 +179,7 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
     Watson_API(text_tweets)
   }//end of else statement
 });//end of glient.get statement
-
+}//end of function
 
 function Watson_API(twitter_text_input){
 //initialize and authenticate watson PI
