@@ -215,7 +215,7 @@ var TraitstoDNA = function(traits) {
     // should take an array of traits, then..
     // select users who have those snps, 
     // select traits from those users
-    allSnpFrequencies = {};
+    var allSnpFrequencies = {};
     var counter = 0;
 
     for (var i = 0; i < traits.length; i++ ) {
@@ -233,13 +233,102 @@ var TraitstoDNA = function(traits) {
             }
         })
     }
-    
-    
-
-   
-
 }
 
+var snpToTrait = function(location, basepair) {
+    pg.connect(process.env.DATABASE_URL, function(err, client) {
+        if (err) throw err;
+        console.log('SELECT idUser FROM Ids_Snps INNER JOIN traits ON (Ids_Snps.idUser = traits.idUser) WHERE Ids_Snps.location = \'' + location + '\' AND Ids_Snps.basepair =\'' + basepair + '\'');
+        client.query('SELECT idUser FROM Ids_Snps INNER JOIN traits ON (Ids_Snps.idUser = traits.idUser) WHERE Ids_Snps.location = \'' + location + '\' AND Ids_Snps.basepair =\'' + basepair + '\'', function (err, result) {
+            
+            client.end(function (err) {
+                if (err) throw err;
+
+                else if (result) {
+                    var users = [];
+                    for (var i = 0; i < result.rows.length; i++) {
+                        if (users.indexOf(result.rows[i].iduser) < 0) {
+                            users.push(result.rows[i].iduser);
+                        }
+                    }
+
+                    var traitFrequencies = {
+                        total: users.length
+                    }
+
+                    console.log('Users with this snp: ' + users);
+                    
+                    /////// COPIED AND PASTED FROM ABOVE .. NEED TO CHECK
+
+                    if (userList == "" || userList.length < 2) {console.log('early callback'); callback(true, true, false);} else {
+                        
+                        console.log('userList in function: ' + userList);
+                        pg.connect(process.env.DATABASE_URL, function(err, client) {
+                            if (err) throw err;
+                            console.log('\nSELECT trait from Ids_Snps INNER JOIN traits ON (Ids_Snps.idUser = traits.idUser) WHERE idUser IN (' + userList + ')\n');
+                            client.query('SELECT trait from Ids_Snps INNER JOIN traits ON (Ids_Snps.idUser = traits.idUser) WHERE idUser IN (' + userList + ')', function(err, result) {
+                                if (err) console.log(err);
+
+                                client.end(function (err) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else if (result) {
+                                        console.log('\n trait results:');
+                                        console.log(JSON.stringify(result));
+                                        
+                                        for (var i = 0; i < result.rows.length; i++) {
+                                            if (traitFrequencies[result.rows[i].trait]) {
+                                                traitFrequencies[result.rows[i].trait]++
+                                            } else {
+                                                traitFrequencies[result.rows[i].trait] = 1;
+                                            }
+                                        }
+                                        
+                                        console.log('snpFrequencies for '+trait+':\n')
+                                        console.log(JSON.stringify(traitFrequencies));
+
+                                        callback(location, basepair, traitFrequencies);
+                                    }
+                                })
+                                
+                            });
+                            // snpFrequencies[result.rows[i].iduser] --> snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]
+
+                            
+                        });
+                    }
+
+
+                }
+            });
+        });
+    });
+}
+
+var DNAtoTraits = function(snps) {
+    // first remove the id
+    delete snps[id];
+    var allTraitFrequencies = {};
+    var counter = 0;
+
+    // for each of these snps, need to find the most common personality traits
+    for (var location in snps) {
+        snpToTrait(location, snps[location], function(location, basepair, trait) {
+            if (location || basepair) {
+                if (trait) {
+                    allTraitFrequencies[location + "@" + basepair] = trait;
+                }
+                counter++;
+
+                if (counter = snps.length) {
+                    console.log ('all traits freqs: ' + JSON.stringify(allTraitFrequencies));
+                    return allTraitFrequencies;
+                }
+            }
+            
+        });
+    }
+}
 
 exports.getAssociations = function(userInfo, direction) {
     if (direction == "DNAtoTraits") {
