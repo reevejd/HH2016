@@ -173,18 +173,6 @@ personality_insights.profile(params, function(error, response) {
 );
 }//end of function
 
-
-
-
-setTimeout(function() {
-    // or to just emit at an arbitary time:
-    io.sockets.emit("whatever", {
-        item1: "this is the first item",
-        item2: "this is the second item",
-        someNumbers: [1, 2, 3, 4]
-    });
-}, 7000);
-
 app.post('/test', function(req, res) {
     console.log('user clicked button');
     //console.log(JSON.stringify(req));
