@@ -70,7 +70,7 @@ app.get('/genometoken', function(req, res) {
                   console.log(error);
               } else {
                   console.log(response.statusCode, body);
-                  console.log(body.profiles.id);
+                  console.log(body.profiles);
               }
           });
         }
