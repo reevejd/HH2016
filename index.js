@@ -71,39 +71,6 @@ app.get('/genometoken', function(req, res) {
         }
     });
 
-
-    /*request({
-        url: 'https://api.23andme.com/token/', //URL to hit
-        //qs: {from: 'blog example', time: +new Date()}, //Query string data
-        method: 'POST',
-        //Lets post the following key/values as form
-        /*auth: {
-
-        },*/
-        /*json: true,
-        formData: {
-          client_id : 'be256e46c1e76dd5e8c76197f9168bed' ,
-          client_secret : 'fdc2dceabe85b0336e7bc99b5eb6a4c3' ,
-          grant_type: 'authorization_code',
-          code : req.query ,
-          redirect_uri : 'http://localhost:8080/genometoken',
-          scope :'genomes'
-        }*/
-        /*json: {
-            "client_id" : "be256e46c1e76dd5e8c76197f9168bed" ,
-            "client_secret" : "fdc2dceabe85b0336e7bc99b5eb6a4c3" ,
-            'grant_type' : 'authorization_code',
-            "code" : req.query ,
-            "redirect_uri" : "http://localhost:8080/genometoken",
-            "scope" :"genomes"
-        }
-    }, function(error, response, body){
-        if(error) {
-            console.log(error);
-        } else {
-            console.log(response.statusCode, body);
-    }
-  });*/
 });
 //Get twitter information
 var Twitter = require('twitter');
