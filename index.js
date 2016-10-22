@@ -39,14 +39,6 @@ app.get('/genometoken', function(req, res) {
     console.log(req.query);
     res.render('index');
 
-    curl 'https://api.23andme.com/token/'
-         -d client_id=be256e46c1e76dd5e8c76197f9168bed \
-         -d client_secret=fdc2dceabe85b0336e7bc99b5eb6a4c3 \
-         -d grant_type=authorization_code \
-         -d code=zzz \
-         -d "redirect_uri=http://localhost:8080/genometoken"
-         -d "scope=genomes"
-
     /*request({
         url: 'https://api.23andme.com/token/', //URL to hit
         //qs: {from: 'blog example', time: +new Date()}, //Query string data
@@ -64,11 +56,11 @@ app.get('/genometoken', function(req, res) {
           redirect_uri : 'http://localhost:8080/genometoken',
           scope :'genomes'
         }*/
-        /*json: {
+        json: {
 
             "client_id" : "be256e46c1e76dd5e8c76197f9168bed" ,
             "client_secret" : "fdc2dceabe85b0336e7bc99b5eb6a4c3" ,
-            "grant_type" : "authorization_code" ,
+            "grant_type" : req.query,
             "code" : "zzz" ,
             "redirect_uri" : "http://localhost:8080/genometoken",
             "scope" :"genomes"
@@ -79,7 +71,7 @@ app.get('/genometoken', function(req, res) {
         } else {
             console.log(response.statusCode, body);
     }
-  });*/
+  });
 });
 
 io.on("connection", function(socket) {
