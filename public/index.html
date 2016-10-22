@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
+
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 crossorigin="anonymous"></script>
 <script src="scripts/socket.io-1.4.5.js"></script>
@@ -12,7 +12,14 @@ crossorigin="anonymous"></script>
 
 <h1>Hello</h1>
 <button id="clickButton"></button>
-    
+<script src="https://api.23andme.com/res/js/ttam-0.3.js"></script>
+<div id="wrapper">Button...</div>
+<script>
+    window.onload = function () {
+        var ttam = TTAM('123456789abcdef0123456789abcdef0');
+        ttam.connectButton('wrapper', ["genomes"]);
+    };
+</script>
 </body>
 
 </html>
