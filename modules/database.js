@@ -163,7 +163,7 @@ var TraittoDNA = function(trait, callback) {
                     }
                     userList = userList.substr(0, userList.length -2);
                     
-                    if (userlist == "") {callback(true, false);}
+                    if (userList == "") {callback(true, false);}
 
                     console.log(userList);
                     pg.connect(process.env.DATABASE_URL, function(err, client) {
@@ -176,7 +176,7 @@ var TraittoDNA = function(trait, callback) {
                                 if (err) {
                                     console.log(err);
                                 } else if (result) {
-                                    console.log('\n');
+                                    console.log('\n basepair/location results:');
                                     console.log(JSON.stringify(result));
 
                                     for (var i = 0; i < users.length; i++) {
