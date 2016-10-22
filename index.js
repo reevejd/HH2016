@@ -34,6 +34,8 @@ app.get('/ttam', function(req, res) {
   res.render('ttam');
 });
 
+var accessToken;
+var profileID;
 app.get('/genometoken', function(req, res) {
     var accessToken;
     console.log(req.query.code);
@@ -71,6 +73,7 @@ app.get('/genometoken', function(req, res) {
                   console.log(response.statusCode, body);
                   body = JSON.parse(body);
                   console.log(body.profiles[0].id);
+                  profileID = body.profiles[0].id;
               }
           });
         }
@@ -93,17 +96,18 @@ app.use(bodyParser.urlencoded({
  */
 app.use(bodyParser.json());
 
+var globalTwitterHandle;
 app.post("/", function (req, res) {
     console.log(req.body.twitter_handle)
-    Twitter_API(req.body.twitter_handle)
+    globalTwitterHandle = req.body.twitter_handle;
+    console.log(globalTwitterHandle);
 });
 
-var globalTwitterHandle;
+
 
 function Twitter_API(twitter_handle_input){
 //Get twitter information
 var Twitter = require('twitter');
-globalTwitterHandle = twitter_handle_input;
 
 var twitter_consumer_key = 'Kb4hqjLTn8vel2IAkXATRRvew'
 var twitter_consumer_secret = 'bnQte5n2L8vhuvntC8mNznMWNsyGZK5D53WkZ6XQmEmfUHQL27'
@@ -171,7 +175,6 @@ personality_insights.profile(params, function(error, response) {
   });
 }//end of function
 
-//function to get twitter
 
 app.post('/test', function(req, res) {
     console.log('user clicked button');
@@ -211,5 +214,3 @@ app.post('/test', function(req, res) {
 
     res.send({status: "Success"});
 });
-
-console.log(globalTwitterHandle);
