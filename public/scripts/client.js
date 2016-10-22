@@ -21,7 +21,7 @@ $(document).ready(function() {
             method: "POST",
             url: "/test",
             data: {
-                data1: "test1", 
+                data1: "test1",
                 data2: ["hi,", "test"]
             }
         });

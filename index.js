@@ -34,6 +34,8 @@ app.get('/ttam', function(req, res) {
   res.render('ttam');
 });
 
+var accessToken;
+var profileID;
 app.get('/genometoken', function(req, res) {
     var accessToken;
     console.log(req.query.code);
@@ -71,6 +73,7 @@ app.get('/genometoken', function(req, res) {
                   console.log(response.statusCode, body);
                   body = JSON.parse(body);
                   console.log(body.profiles[0].id);
+                  profileID = body.profiles[0].id;
               }
           });
         }
@@ -93,10 +96,13 @@ app.use(bodyParser.urlencoded({
  */
 app.use(bodyParser.json());
 
+var globalTwitterHandle;
 app.post("/", function (req, res) {
     console.log(req.body.twitter_handle)
-    Twitter_API(req.body.twitter_handle)
+    globalTwitterHandle = req.body.twitter_handle;
+    console.log(globalTwitterHandle);
 });
+
 
 
 function Twitter_API(twitter_handle_input){
@@ -169,7 +175,6 @@ personality_insights.profile(params, function(error, response) {
   });
 }//end of function
 
-//function to get twitter
 
 app.post('/test', function(req, res) {
     console.log('user clicked button');
@@ -183,10 +188,10 @@ app.post('/test', function(req, res) {
         "snp1location": "AT",
         "snp2location": "CG",
 	    },
-      traits: ["likes to read", "likes romantic movies"]
+      traits: ["likes to read", "likes movies"]
     }
 
-    db.insertUser(info);    
+    db.insertUser(info);
 
     // connect to our database
     pg.defaults.ssl = true;
