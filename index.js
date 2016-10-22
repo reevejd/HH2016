@@ -1,5 +1,6 @@
 var request = require('request'); // for making API calls
 var bodyParser = require('body-parser');
+var pg = require('pg');
 
 // port = process.env.PORT for deploying on cloud host (need this for heroku anyway, 8080 for local testing
 
@@ -75,5 +76,26 @@ app.post('/test', function(req, res) {
     //console.log(JSON.stringify(req));
     console.log(JSON.stringify(req.body));
     console.log(JSON.stringify(req.body.data1));
+    
+    var client = new pg.Client();
+
+    var client = new pg.Client();
+
+    // connect to our database
+    client.connect(function (err) {
+    if (err) throw err;
+
+    // execute a query on our database
+    client.query('CREATE DATABASE test', function (err, result) {
+        if (err) throw err;
+
+        client.end(function (err) {
+        if (err) throw err;
+        });
+    });
+    });
+    
     res.send({status: "Success"});
+    
+
 })

@@ -13,7 +13,8 @@
     "ejs": "2.4.1",
     "express": "4.13.3",
     "request": "2.73.0",
-    "socket.io": "1.4.8"
+    "socket.io": "1.4.8",
+    "pg": "6.1.0"
   },
   "repository": {
     "type": "git",
