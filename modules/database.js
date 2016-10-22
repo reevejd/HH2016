@@ -142,17 +142,46 @@ var TraittoDNA = function(trait, callback) {
                 if (err) throw err;
 
                 else if (result) {
-                    console.log(JSON.stringify(result));
-                    snpFrequencies = {
-                        total: result.rows.length
+                    var users = []
+                    for (var i = 0; i < result.rows.length; i++) {
+                        if (!users.includes(result.rows[i].iduser)) {
+                            users.push(result.rows[i].iduser);
+                        }
                     }
+
+                    snpFrequencies = {
+                        total: users.length
+                    }
+
                     console.log(JSON.stringify(result));
                     // for each user that has this trait, iterate through their snps and keep count
-                    for (var i = 0; i < result.rows.length; i++) {
-                        if (snpFrequencies[result.rows[i].idUser]) {
-                            snpFrequencies[result.rows[i].idUser]++
+                    // need another query to get all snps for every user
+                    
+                    var userList = "";
+                    for (var i = 0; i < users.length; i++ ) {
+                        userList += "'" + users[i] + "', "
+                    }
+                    userList = userList.substr(0, userList.length -2);
+                    console.log(userList);
+
+                    client.query('SELECT * from Ids_Snps WHERE idUser IN (' + userList + ')', function(err, result) {
+                        if (err) console.log(err);
+
+                        client.end(function (err) {
+                            if (err) throw err;
+
+                            else if (result) {
+                                console.log(JSON.stringify(result));
+                            }
+                        })
+                    });
+
+
+                    for (var i = 0; i < users.length; i++) {
+                        if (snpFrequencies[result.rows[i].iduser]) {
+                            snpFrequencies[result.rows[i].iduser]++
                         } else {
-                            snpFrequencies[result.rows[i].idUser] = 1;
+                            snpFrequencies[result.rows[i].iduser] = 1;
                         }
                     }
                     console.log('snpFrequencies for '+trait+':\n')
