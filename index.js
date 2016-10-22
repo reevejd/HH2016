@@ -41,7 +41,7 @@ app.get('/genometoken', function(req, res) {
 
             client_id: "be256e46c1e76dd5e8c76197f9168bed",
             client_secret: "fdc2dceabe85b0336e7bc99b5eb6a4c3",
-            grant_type: "authorization_code" ,
+            grant_type: "code" ,
             code: "zzz" ,
             "redirect_uri": "http://localhost:8080/genometoken",
             "scope": "genomes"
