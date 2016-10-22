@@ -16,10 +16,10 @@ $(document).ready(function() {
     }
     console.log(window.location.href);
     if (window.location.href.includes('?twitter_handle=%40')) {
-      var thisUserTwitterHandle;
-      thisUserTwitterHandle = window.location.href.split('?twitter_handle=%40')[1];
-      console.log(thisUserTwitterHandle);
-      setCookie("thisUserTwitterHandle", thisUserTwitterHandle, 365);
+        var thisUserTwitterHandle;
+        thisUserTwitterHandle = window.location.href.split('?twitter_handle=%40')[1];
+        console.log(thisUserTwitterHandle);
+        setCookie("thisUserTwitterHandle", thisUserTwitterHandle, 365);
     }
 
 
@@ -48,6 +48,18 @@ $(document).ready(function() {
         document.cookie = "thisUserTwitterHandle=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
         console.log("Cleared: " + getCookie("thisUser"));
         console.log("Cleared: " + getCookie("thisUserTwitterHandle"));
+    })
+
+    $("#sendToServer").on("click", function() {
+        console.log('Sending to server');
+        $.ajax({
+            method: "POST",
+            url: "/send-to-server",
+            data: {
+                code: getCookie("thisUser") ,
+                twitterHandle: getCookie("thisUserTwitterHandle")
+            }
+        });
     })
 });
 

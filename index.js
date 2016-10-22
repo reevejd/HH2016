@@ -41,7 +41,7 @@ app.get('/genometoken', function(req, res) {
     console.log(req.query.code);
     res.render('index');
 
-    request.post('https://api.23andme.com/token/', {
+    /*request.post('https://api.23andme.com/token/', {
       form: {
         client_id : 'be256e46c1e76dd5e8c76197f9168bed' ,
         client_secret : 'fdc2dceabe85b0336e7bc99b5eb6a4c3' ,
@@ -60,7 +60,7 @@ app.get('/genometoken', function(req, res) {
           console.log(body.access_token);
           accessToken = body.access_token;
           //getting the user id
-          request({
+          /*request({
               url: 'https://api.23andme.com/1/user/', //URL to hit
               method: 'GET', //Specify the method
               headers: { //We can define headers too
@@ -77,7 +77,7 @@ app.get('/genometoken', function(req, res) {
               }
           });
         }
-    });
+    });*/
 });
 
 var connect = require('connect')
@@ -170,7 +170,8 @@ personality_insights.profile(params, function(error, response) {
   if (error)
     console.log('error:', error);
   else
-    console.log(JSON.stringify(response, null, 2));
+    //console.log(JSON.stringify(response, null, 2));
+    console.log(response);
   });
 }//end of function
 
@@ -194,6 +195,62 @@ app.post('/test', function(req, res) {
 
 
     console.log(JSON.stringify(db.getAssociations(['likes to read', 'likes movies', 'likes nothing'], 'TraitstoDNA')));
+
+    res.send({status: "Success"});
+});
+
+app.post('/send-to-server', function(req, res) {
+    console.log('user is sending client data');
+    //console.log(JSON.stringify(req));
+    console.log(JSON.stringify(req.body));
+    //console.log(JSON.stringify(req.body.data1));
+
+    /*var info = {
+      id: "user_id_here",
+	    geneticData: {
+        "snp1location": "AT",
+        "snp2location": "CG",
+	    },
+      traits: ["likes to read", "likes movies"]
+    }*/
+  request.post('https://api.23andme.com/token/', {
+      form: {
+        client_id : 'be256e46c1e76dd5e8c76197f9168bed' ,
+        client_secret : 'fdc2dceabe85b0336e7bc99b5eb6a4c3' ,
+        grant_type: 'authorization_code',
+        code : req.body.code ,
+        redirect_uri : 'http://localhost:8080/genometoken',
+        scope :'genomes basic'
+      },
+      json: true
+    }, function (error, response, body) {
+      // assert.equal(typeof body, 'object')
+      if(error) {
+          console.log(error);
+      } else {
+          console.log(response.statusCode, body);
+          console.log(body.access_token);
+          var accessToken = body.access_token;
+          //getting the user id
+          request({
+              url: 'https://api.23andme.com/1/user/', //URL to hit
+              method: 'GET', //Specify the method
+              headers: { //We can define headers too
+                  'Authorization': 'Bearer' + ' ' + accessToken
+              }
+          }, function(error, response, body){
+              if(error) {
+                  console.log(error);
+              } else {
+                  console.log(response.statusCode, body);
+                  body = JSON.parse(body);
+                  console.log(body.profiles[0].id);
+              }
+          });
+        }
+    });
+
+    Twitter_API(req.body.twitterHandle);
 
     res.send({status: "Success"});
 });
