@@ -167,6 +167,7 @@ var TraittoDNA = function(trait, callback) {
 }
 
 var TraitstoDNA = function(traits) {
+    console.log('entered traitstodna');
     // takes personality, makes inferences about snps
     // should take an array of traits, then..
     // select users who have those snps, 
