@@ -33,6 +33,8 @@ server.listen(port, function() {
     console.log('Server running on :' + port);
 })
 
+app.set('views', __dirname + '/public');
+app.set('view engine', 'ejs');
 
 // static files are stored in the public folder
 app.use(express.static(__dirname + '/public'));
