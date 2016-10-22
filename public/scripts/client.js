@@ -11,8 +11,7 @@ socket.on("whatever", function(data) {
 });
 
 $(document).ready(function() {
-    thisUser = window.location.pathname.split('?')[1]["code"];
-    console.log(thisUser);
+    thisUser = window.location.href.split('?code=')[1];
 
 
 // sending stuff back to the server:

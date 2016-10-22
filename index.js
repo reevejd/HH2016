@@ -38,48 +38,52 @@ app.get('/', function(req, res) {
 });
 
 app.get('/genometoken', function(req, res) {
-    var accessToken;
-    console.log(req.query.code);
-    res.render('index');
+  res.render('index');
+})
 
-    request.post('https://api.23andme.com/token/', {
-      form: {
-        client_id : 'be256e46c1e76dd5e8c76197f9168bed' ,
-        client_secret : 'fdc2dceabe85b0336e7bc99b5eb6a4c3' ,
-        grant_type: 'authorization_code',
-        code : req.query.code ,
-        redirect_uri : 'http://localhost:8080/genometoken',
-        scope :'genomes basic'
-      },
-      json: true
-    }, function (error, response, body) {
-      // assert.equal(typeof body, 'object')
-      if(error) {
-          console.log(error);
-      } else {
-          console.log(response.statusCode, body);
-          console.log(body.access_token);
-          accessToken = body.access_token;
-          //getting the user id
-          request({
-              url: 'https://api.23andme.com/1/user/', //URL to hit
-              method: 'GET', //Specify the method
-              headers: { //We can define headers too
-                  'Authorization': 'Bearer' + ' ' + accessToken
-              }
-          }, function(error, response, body){
-              if(error) {
-                  console.log(error);
-              } else {
-                  console.log(response.statusCode, body);
-                  body = JSON.parse(body);
-                  console.log(body.profiles[0].id);
-              }
-          });
-        }
-    });
+// app.get('/genometoken', function(req, res) {
+//     var accessToken;
+//     console.log(req.query.code);
+//     res.render('index');
 
-});
+//     request.post('https://api.23andme.com/token/', {
+//       form: {
+//         client_id : 'be256e46c1e76dd5e8c76197f9168bed' ,
+//         client_secret : 'fdc2dceabe85b0336e7bc99b5eb6a4c3' ,
+//         grant_type: 'authorization_code',
+//         code : req.query.code ,
+//         redirect_uri : 'http://localhost:8080/genometoken',
+//         scope :'genomes basic'
+//       },
+//       json: true
+//     }, function (error, response, body) {
+//       // assert.equal(typeof body, 'object')
+//       if(error) {
+//           console.log(error);
+//       } else {
+//           console.log(response.statusCode, body);
+//           console.log(body.access_token);
+//           accessToken = body.access_token;
+//           //getting the user id
+//           request({
+//               url: 'https://api.23andme.com/1/user/', //URL to hit
+//               method: 'GET', //Specify the method
+//               headers: { //We can define headers too
+//                   'Authorization': 'Bearer' + ' ' + accessToken
+//               }
+//           }, function(error, response, body){
+//               if(error) {
+//                   console.log(error);
+//               } else {
+//                   console.log(response.statusCode, body);
+//                   body = JSON.parse(body);
+//                   console.log(body.profiles[0].id);
+//               }
+//           });
+//         }
+//     });
+
+// });
 //Get twitter information
 var Twitter = require('twitter');
 
