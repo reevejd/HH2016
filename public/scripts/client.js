@@ -10,8 +10,12 @@ socket.on("whatever", function(data) {
 });
 
 $(document).ready(function() {
-    thisUser = window.location.href.split('?code=')[1];
-    thisUserTwitterHandle = window.location.href.split('?twitter_handle=%40')[1];
+    if (window.location.href.includes('?code=')) {
+        thisUser = window.location.href.split('?code=')[1];
+    }
+    if (window.location.href.includes('?twitter_handle=%40')) {
+      thisUserTwitterHandle = window.location.href.split('?twitter_handle=%40')[1];
+    }
 
 
 // sending stuff back to the server:
