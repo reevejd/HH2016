@@ -47,7 +47,7 @@ app.get('/genometoken', function(req, res) {
         grant_type: 'authorization_code',
         code : req.query.code ,
         redirect_uri : 'http://localhost:8080/genometoken',
-        scope :'genomes%20basic'
+        scope :'genomes basic'
       },
       json: true
     }, function (error, response, body) {
