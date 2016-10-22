@@ -61,7 +61,8 @@ app.get('/genometoken', function(req, res) {
         }
     });
 
-     console.log("Bearer" + accessToken);
+     console.log(accessToken);
+     console.log("Bearer" + " " + accessToken);
     //Lets configure and request
     request({
         url: 'https://api.23andme.com/1/user/', //URL to hit
