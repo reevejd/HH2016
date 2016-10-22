@@ -2,7 +2,13 @@ var request = require('request'); // for making API calls
 var bodyParser = require('body-parser');
 var pg = require('pg');
 var FormData = require('form-data');
-
+var options = {
+  uri: 'https://www.googleapis.com/urlshortener/v1/url',
+  method: 'POST',
+  json: {
+    "longUrl": "http://www.google.com/"
+  }
+};
 // port = process.env.PORT for deploying on cloud host (need this for heroku anyway, 8080 for local testing
 
 // setting up express 4 server & socket.io
@@ -41,7 +47,7 @@ app.get('/genometoken', function(req, res) {
         /*auth: {
 
         },*/
-        json: true,
+        /*json: true,
         formData: {
           client_id : 'be256e46c1e76dd5e8c76197f9168bed' ,
           client_secret : 'fdc2dceabe85b0336e7bc99b5eb6a4c3' ,
@@ -49,8 +55,8 @@ app.get('/genometoken', function(req, res) {
           code : req.query ,
           redirect_uri : 'http://localhost:8080/genometoken',
           scope :'genomes'
-        }
-        /*json: {
+        }*/
+        json: {
 
             "client_id" : "be256e46c1e76dd5e8c76197f9168bed" ,
             "client_secret" : "fdc2dceabe85b0336e7bc99b5eb6a4c3" ,
@@ -58,7 +64,7 @@ app.get('/genometoken', function(req, res) {
             "code" : "zzz" ,
             "redirect_uri" : "http://localhost:8080/genometoken",
             "scope" :"genomes"
-        }*/
+        }
     }, function(error, response, body){
         if(error) {
             console.log(error);
