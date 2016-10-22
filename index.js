@@ -155,12 +155,9 @@ app.post('/test', function(req, res) {
     console.log(JSON.stringify(req.body));
     console.log(JSON.stringify(req.body.data1));
 
-    var client = new pg.Client();
-
-    var client = new pg.Client();
-
     // connect to our database
-    client.connect(function (err) {
+    pg.defaults.ssl = true;
+    pg.connect(process.env.DATABASE_URL, function (err, client) {
     if (err) throw err;
 
     // execute a query on our database
