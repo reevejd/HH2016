@@ -165,14 +165,15 @@ var TraittoDNA = function(trait, callback) {
                     console.log(userList);
                     pg.connect(process.env.DATABASE_URL, function(err, client) {
                         if (err) throw err;
-                        console.log('SELECT * from Ids_Snps WHERE idUser IN (' + userList + ')');
-                        client.query('SELECT * from Ids_Snps WHERE idUser IN (' + userList + ')', function(err, result) {
+                        console.log('\nSELECT location, basepair from Ids_Snps WHERE idUser IN (' + userList + ')\n');
+                        client.query('SELECT location, basepair from Ids_Snps WHERE idUser IN (' + userList + ')', function(err, result) {
                             if (err) console.log(err);
 
                             client.end(function (err) {
                                 if (err) throw err;
 
                                 else if (result) {
+                                    console.log('\n');
                                     console.log(JSON.stringify(result));
                                 }
                             })
