@@ -133,8 +133,8 @@ var DNAtoTraits = function(userJSON) {
 var TraittoDNA = function(trait, callback) {
     pg.connect(process.env.DATABASE_URL, function(err, client) {
         if (err) throw err;
-
-        client.query('SELECT idUser FROM userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE traits.trait = "' + trait + '"', function (err, result) {
+        console.log('SELECT idUser FROM userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE traits.trait = \'' + trait + '\'');
+        client.query('SELECT idUser FROM userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE traits.trait = \'' + trait + '\'', function (err, result) {
             if (err) console.log(err);
 
             client.end(function (err) {
