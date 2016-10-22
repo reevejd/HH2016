@@ -20,3 +20,20 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function(req,res) {
   res.render('index');
 });
+
+io.on("connection", function(socket) {
+    socket.emit("whatever", {
+        item1: "this is the first item",
+        item2: "this is the second item",
+        someNumbers: [1, 2, 3, 4]
+    });
+});
+
+setTimeout(function() {
+    // or to just emit at an arbitary time:
+    io.sockets.emit("whatever", {
+        item1: "this is the first item",
+        item2: "this is the second item",
+        someNumbers: [1, 2, 3, 4]
+    });
+}, 7000);
