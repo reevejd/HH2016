@@ -163,31 +163,33 @@ var TraittoDNA = function(trait, callback) {
                     }
                     userList = userList.substr(0, userList.length -2);
                     console.log(userList);
+                    pg.connect(process.env.DATABASE_URL, function(err, client) {
+                        if (err) throw err;
+                        client.query('SELECT * from Ids_Snps WHERE idUser IN (' + userList + ')', function(err, result) {
+                            if (err) console.log(err);
 
-                    client.query('SELECT * from Ids_Snps WHERE idUser IN (' + userList + ')', function(err, result) {
-                        if (err) console.log(err);
+                            client.end(function (err) {
+                                if (err) throw err;
 
-                        client.end(function (err) {
-                            if (err) throw err;
+                                else if (result) {
+                                    console.log(JSON.stringify(result));
+                                }
+                            })
+                        });
 
-                            else if (result) {
-                                console.log(JSON.stringify(result));
+
+                        for (var i = 0; i < users.length; i++) {
+                            if (snpFrequencies[result.rows[i].iduser]) {
+                                snpFrequencies[result.rows[i].iduser]++
+                            } else {
+                                snpFrequencies[result.rows[i].iduser] = 1;
                             }
-                        })
-                    });
-
-
-                    for (var i = 0; i < users.length; i++) {
-                        if (snpFrequencies[result.rows[i].iduser]) {
-                            snpFrequencies[result.rows[i].iduser]++
-                        } else {
-                            snpFrequencies[result.rows[i].iduser] = 1;
                         }
-                    }
-                    console.log('snpFrequencies for '+trait+':\n')
-                    console.log(JSON.stringify(snpFrequencies));
+                        console.log('snpFrequencies for '+trait+':\n')
+                        console.log(JSON.stringify(snpFrequencies));
 
-                    callback(snpFrequencies, trait);
+                        callback(snpFrequencies, trait);
+                    });
 
 
                     
