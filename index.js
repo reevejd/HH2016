@@ -55,6 +55,7 @@ app.get('/genometoken', function(req, res) {
           console.log(error);
       } else {
           console.log(response.statusCode, body);
+        }
     });
     /*request({
         url: 'https://api.23andme.com/token/', //URL to hit
