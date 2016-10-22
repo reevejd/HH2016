@@ -35,9 +35,26 @@ var insertSnps = function(id, geneticData) {
     })
 };
 
+var insertTrait = function(trait) {
+    pg.connect(process.env.DATABASE_URL, function (err, client) {
+        if (err) throw err;
+        client.query('INSERT INTO Traits (trait) VALUES ($1)', [trait], function (err, result) {
+            if (err) console.log(err);
+
+            client.end(function (err) {
+                if (err) throw err;
+
+                else {
+                    console.log(JSON.stringify(result));
+                }
+            });
+        });
+    });
+}
+
 var insertTraits = function(idUser, traits, callback) {
     for (i = 0; i < traits.length; i++) {
-        updateTraitsTable(traits[i]);    
+        insertTrait(traits[i]);    
     }           
 }
 
@@ -60,12 +77,38 @@ var updateTraitsTable = function(traits) {
     });
 }
 
+var associateUserTraits = function(id, traits) {
+    var traitList = "";
+    for (var i = 0; i < traits.length; i++ ) {
+        traitlist += traits[i] + ", "
+    }
+    traitList = traitList.substr(0, str.length -2);
+    console.log(traitList);
+
+    pg.connect(process.env.DATABASE_URL, function (err, client) {
+        if (err) throw err;
+        client.query('SELECT idTrait FROM Traits WHERE trait IN (' + traitList + ')', function (err, result) {
+            if (err) console.log(err);
+
+            client.end(function (err) {
+
+                if (err) throw err;
+
+                else {
+                    console.log(JSON.stringify(result.rows));
+                }
+            });
+        });
+    });
+}
+
 exports.insertUser = function(userJson) {
     // need to insert into traits first
     console.log('entered insertuser');
     console.log(JSON.stringify(userJson));
     insertSnps(userJson.id, userJson.geneticData);
-    
+    insertTraits(userJson.traits);
+    associateUserTraits(userJson.id, userJson.traits);
     // insertTraits(userJson.id, userJson.traits, function(finished) {
     //     if (finished) {
 
