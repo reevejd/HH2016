@@ -144,14 +144,14 @@ var TraittoDNA = function(trait, callback) {
                 else if (result) {
                     console.log(JSON.stringify(result));
                     snpFrequencies = {
-                        total: results.rows.length
+                        total: result.rows.length
                     }
                     // for each user that has this trait, iterate through their snps and keep count
-                    for (var i = 0; i < results.rows.length; i++) {
-                        if (snpFrequencies[results.rows[i].idUser]) {
-                            snpFrequencies[results.rows[i].idUser]++
+                    for (var i = 0; i < result.rows.length; i++) {
+                        if (snpFrequencies[result.rows[i].idUser]) {
+                            snpFrequencies[result.rows[i].idUser]++
                         } else {
-                            snpFrequencies[results.rows[i].idUser] = 1;
+                            snpFrequencies[result.rows[i].idUser] = 1;
                         }
                     }
 
