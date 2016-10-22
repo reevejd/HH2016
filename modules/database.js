@@ -85,7 +85,7 @@ var associateUserTraits = function(id, traits) {
     console.log('entered associateUserTraits');
     var traitList = "";
     for (var i = 0; i < traits.length; i++ ) {
-        traitlist += traits[i] + ", "
+        traitList += traits[i] + ", "
     }
     traitList = traitList.substr(0, str.length -2);
     console.log(traitList);
