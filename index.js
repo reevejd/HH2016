@@ -31,6 +31,7 @@ app.get('/', function(req, res) {
 app.get('/genometoken', function(req, res) {
     console.log(req.query);
     res.render('index');
+
     request({
         url: 'https://api.23andme.com/token/', //URL to hit
         //qs: {from: 'blog example', time: +new Date()}, //Query string data
@@ -45,7 +46,7 @@ app.get('/genometoken', function(req, res) {
             "redirect_uri=http://localhost:8080/genometoken"
             //"scope=genomes"
         }
-    }, function(error, response, body){
+     function(error, response, body){
         if(error) {
             console.log(error);
         } else {
@@ -76,7 +77,7 @@ app.post('/test', function(req, res) {
     //console.log(JSON.stringify(req));
     console.log(JSON.stringify(req.body));
     console.log(JSON.stringify(req.body.data1));
-    
+
     var client = new pg.Client();
 
     var client = new pg.Client();
@@ -94,8 +95,8 @@ app.post('/test', function(req, res) {
         });
     });
     });
-    
+
     res.send({status: "Success"});
-    
+
 
 })
