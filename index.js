@@ -98,10 +98,12 @@ app.post("/", function (req, res) {
     Twitter_API(req.body.twitter_handle)
 });
 
+var globalTwitterHandle;
 
 function Twitter_API(twitter_handle_input){
 //Get twitter information
 var Twitter = require('twitter');
+globalTwitterHandle = twitter_handle_input;
 
 var twitter_consumer_key = 'Kb4hqjLTn8vel2IAkXATRRvew'
 var twitter_consumer_secret = 'bnQte5n2L8vhuvntC8mNznMWNsyGZK5D53WkZ6XQmEmfUHQL27'
@@ -186,7 +188,7 @@ app.post('/test', function(req, res) {
       traits: ["likes to read", "likes movies"]
     }
 
-    db.insertUser(info);    
+    db.insertUser(info);
 
     // connect to our database
     pg.defaults.ssl = true;
@@ -209,3 +211,5 @@ app.post('/test', function(req, res) {
 
     res.send({status: "Success"});
 });
+
+console.log(globalTwitterHandle);
