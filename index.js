@@ -74,6 +74,7 @@ app.get('/genometoken', function(req, res) {
           });
         }
     });
+});
 
 
 var connect = require('connect')
@@ -195,3 +196,4 @@ app.post('/test', function(req, res) {
     });
 
     res.send({status: "Success"});
+});
