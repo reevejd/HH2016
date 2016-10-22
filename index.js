@@ -25,6 +25,10 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
+app.get('/genometoken', function() {
+    console.log(req.params.genometoken);
+})
+
 io.on("connection", function(socket) {
     socket.emit("whatever", {
         item1: "this is the first item",
