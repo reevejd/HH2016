@@ -37,7 +37,17 @@ app.get('/genometoken', function(req, res) {
         //qs: {from: 'blog example', time: +new Date()}, //Query string data
         method: 'POST',
         //Lets post the following key/values as form
-        json: {
+        auth: {
+          client_id : 'be256e46c1e76dd5e8c76197f9168bed' ,
+          client_secret : 'fdc2dceabe85b0336e7bc99b5eb6a4c3' ,
+        },
+        form: {
+          'grant_type': 'authorization_code',
+          'code' : 'zzz' ,
+          'redirect_uri' : 'http://localhost:8080/genometoken',
+          'scope' :'genomes'
+        }
+        /*json: {
 
             "client_id" : "be256e46c1e76dd5e8c76197f9168bed" ,
             "client_secret" : "fdc2dceabe85b0336e7bc99b5eb6a4c3" ,
@@ -45,8 +55,7 @@ app.get('/genometoken', function(req, res) {
             "code" : "zzz" ,
             "redirect_uri" : "http://localhost:8080/genometoken",
             "scope" :"genomes"
-
-        }
+        }*/
     }, function(error, response, body){
         if(error) {
             console.log(error);
