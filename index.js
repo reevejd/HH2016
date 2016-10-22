@@ -2,6 +2,7 @@ var request = require('request'); // for making API calls
 var bodyParser = require('body-parser');
 var pg = require('pg');
 var FormData = require('form-data');
+var db = require('./modules/database.js');
 
 // port = process.env.PORT for deploying on cloud host (need this for heroku anyway, 8080 for local testing
 
@@ -175,6 +176,17 @@ app.post('/test', function(req, res) {
     //console.log(JSON.stringify(req));
     console.log(JSON.stringify(req.body));
     console.log(JSON.stringify(req.body.data1));
+
+    var info = {
+      id: "user_id_here",
+	    geneticData = {
+        "snp1location": "AT",
+        "snp2location": "CG",
+	    },
+      traits = ["likes to read", "likes romantic movies"]
+    }
+
+    db.insertUser(info);    
 
     // connect to our database
     pg.defaults.ssl = true;

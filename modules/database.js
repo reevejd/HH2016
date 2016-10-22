@@ -7,16 +7,29 @@ pg.defaults.ssl = true;
 
 
 var insertSnp = function(id, location, basepair) {
+    pg.connect(process.env.DATABASE_URL, function (err, client) {
+        if (err) throw err;
+        client.query('INSERT INTO Snps_Ids (idUser, location, basepair) VALUES ($1, $2, $3)', [id, location, basepair], function (err, result) {
+            if (err) console.log(err);
 
+            client.end(function (err) {
+                if (err) throw err;
+
+                else {
+                    console.log(JSON.stringify(result));
+                }
+            });
+        });
+    });
 }
 
-var insertSnps = function(geneticData) {
+var insertSnps = function(id, geneticData) {
     pg.connect(process.env.DATABASE_URL, function(err, client) {
         if (err) {
             throw err;
         } else {
-            for (var i = 0; i < geneticData.length -1; i++) {
-                insertSnp(geneticData.id, geneticData[])
+            for (var key in geneticData) {
+                insertSnp(id, key, geneticData[key]);
             }
         }
     })
@@ -51,11 +64,11 @@ exports.insertUser = function(userJson) {
     // need to insert into traits first
     console.log('entered insertuser');
     console.log(JSON.stringify(userJson));
-    insertSnps(userJson.geneticData);
+    insertSnps(userJson.id, userJson.geneticData);
     
-    insertTraits(userJson.geneticData.id, userJson.traits, function(finished) {
-        if (finished) {
+    // insertTraits(userJson.id, userJson.traits, function(finished) {
+    //     if (finished) {
 
-        }
-    })
+    //     }
+    // })
 }
