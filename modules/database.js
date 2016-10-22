@@ -162,6 +162,9 @@ var TraittoDNA = function(trait, callback) {
                         userList += "'" + users[i] + "', "
                     }
                     userList = userList.substr(0, userList.length -2);
+                    
+                    if (userlist == "") {callback(true, false);}
+}
                     console.log(userList);
                     pg.connect(process.env.DATABASE_URL, function(err, client) {
                         if (err) throw err;
@@ -172,7 +175,6 @@ var TraittoDNA = function(trait, callback) {
                             client.end(function (err) {
                                 if (err) {
                                     console.log(err);
-                                    callback(true, false);
                                 } else if (result) {
                                     console.log('\n');
                                     console.log(JSON.stringify(result));
