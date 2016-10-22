@@ -40,6 +40,7 @@ app.get('/genometoken', function(req, res) {
         /*auth: {
 
         },*/
+        json: true,
         formData: {
           'client_id' : 'be256e46c1e76dd5e8c76197f9168bed' ,
           'client_secret' : 'fdc2dceabe85b0336e7bc99b5eb6a4c3' ,
