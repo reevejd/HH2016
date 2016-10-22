@@ -65,12 +65,12 @@ app.get('/genometoken', function(req, res) {
               headers: { //We can define headers too
                   'Authorization': 'Bearer' + ' ' + accessToken
               }
-          }, function(error, response, body){
+          }, function(error, response, bod){
               if(error) {
                   console.log(error);
               } else {
-                  console.log(response.statusCode, body);
-                  console.log(body.id);
+                  console.log(response.statusCode, bod);
+                  console.log(bod.profiles[0].id);
               }
           });
         }
