@@ -45,7 +45,7 @@ app.get('/', function(req, res) {
 
 app.get('/genometoken', function(req, res) {
     console.log(req.params);
-    res.render('index.html');
+    res.render('index');
 })
 
 io.on("connection", function(socket) {
