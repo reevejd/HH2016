@@ -2,22 +2,6 @@ var request = require('request'); // for making API calls
 var bodyParser = require('body-parser');
 
 // port = process.env.PORT for deploying on cloud host (need this for heroku anyway, 8080 for local testing
-/*request({
-    url: 'https://modulus.io/contact/demo', //URL to hit
-    qs: {from: 'blog example', time: +new Date()}, //Query string data
-    method: 'POST',
-    //Lets post the following key/values as form
-    json: {
-        field1: 'data',
-        field2: 'data'
-    }
-}, function(error, response, body){
-    if(error) {
-        console.log(error);
-    } else {
-        console.log(response.statusCode, body);
-}
-});*/
 
 // setting up express 4 server & socket.io
 var express = require('express');
@@ -46,6 +30,26 @@ app.get('/', function(req, res) {
 app.get('/genometoken', function(req, res) {
     console.log(req.query);
     res.render('index');
+    request({
+        url: 'https://api.23andme.com/token/', //URL to hit
+        //qs: {from: 'blog example', time: +new Date()}, //Query string data
+        method: 'POST',
+        //Lets post the following key/values as form
+        json: {
+            client_id=be256e46c1e76dd5e8c76197f9168bed ,
+            client_secret=fdc2dceabe85b0336e7bc99b5eb6a4c3 ,
+            grant_type=authorization_code ,
+            code=zzz ,
+            "redirect_uri=http://localhost:8080/genometoken" ,
+            "scope=genomes"
+        }
+    }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        } else {
+            console.log(response.statusCode, body);
+    }
+    });
 });
 
 io.on("connection", function(socket) {
