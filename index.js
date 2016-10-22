@@ -44,7 +44,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/genometoken', function(req, res) {
-    console.log(req.params);
+    console.log(req.query);
     res.render('index');
 });
 
