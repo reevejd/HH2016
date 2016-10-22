@@ -39,7 +39,7 @@ app.get('/genometoken', function(req, res) {
     console.log(req.query);
     res.render('index');
 
-    curl https://api.23andme.com/token/
+    curl 'https://api.23andme.com/token/'
          -d client_id=be256e46c1e76dd5e8c76197f9168bed \
          -d client_secret=fdc2dceabe85b0336e7bc99b5eb6a4c3 \
          -d grant_type=authorization_code \
