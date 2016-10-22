@@ -62,20 +62,16 @@ var insertTraits = function(traits) {
     }           
 }
 
-var updateTraitsTable = function(traits) {
+var associateUserTrait = function(id, trait) {
     pg.connect(process.env.DATABASE_URL, function (err, client) {
         if (err) throw err;
-        client.query('INSERT INTO Traits (trait) VALUES ($1)', [traits[i]], function (err, result) {
+        client.query('INSERT INTO userTraits (idUser, idTrait) VALUES ($1, $2)', [id, trait], function (err, result) {
             if (err) console.log(err);
 
             client.end(function (err) {
-                loopCounter++;
 
                 if (err) throw err;
 
-                else {
-                    //console.log(JSON.stringify(result.rows));
-                }
             });
         });
     });
@@ -102,6 +98,10 @@ var associateUserTraits = function(id, traits) {
                 else if (result) {
                     console.log('User trait Ids:\n')
                     console.log(JSON.stringify(result));
+                    for (var i = 0; i < result.rows.length; i++ ) {
+                        associateUserTrait(id, result.rows[i].idtrait);
+
+                    }
                 }
             });
         });
