@@ -58,26 +58,27 @@ app.get('/genometoken', function(req, res) {
           console.log(response.statusCode, body);
           console.log(body.access_token);
           accessToken = body.access_token;
+          //Lets configure and request
+          request({
+              url: 'https://api.23andme.com/1/user/', //URL to hit
+              //qs: {from: 'blog example', time: +new Date()}, //Query string data
+              method: 'GET', //Specify the method
+              headers: { //We can define headers too
+                  'Authorization': 'Bearer' + ' ' + accessToken
+              }
+          }, function(error, response, body){
+              if(error) {
+                  console.log(error);
+              } else {
+                  console.log(response.statusCode, body);
+              }
+          });
         }
     });
 
      console.log(accessToken);
      console.log("Bearer" + " " + accessToken);
-    //Lets configure and request
-    request({
-        url: 'https://api.23andme.com/1/user/', //URL to hit
-        //qs: {from: 'blog example', time: +new Date()}, //Query string data
-        method: 'GET', //Specify the method
-        headers: { //We can define headers too
-            'Authorization': 'Bearer' + accessToken
-        }
-    }, function(error, response, body){
-        if(error) {
-            console.log(error);
-        } else {
-            console.log(response.statusCode, body);
-        }
-    });
+
     /*request({
         url: 'https://api.23andme.com/token/', //URL to hit
         //qs: {from: 'blog example', time: +new Date()}, //Query string data
