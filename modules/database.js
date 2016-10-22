@@ -133,8 +133,8 @@ var DNAtoTraits = function(userJSON) {
 var TraittoDNA = function(trait, callback) {
     pg.connect(process.env.DATABASE_URL, function(err, client) {
         if (err) throw err;
-
-        client.query('SELECT idUser FROM userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE traits.trait = "' + trait + '"', function (err, result) {
+        console.log('SELECT idUser FROM userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE traits.trait = \'' + trait + '\'');
+        client.query('SELECT idUser FROM userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE traits.trait = \'' + trait + '\'', function (err, result) {
             if (err) console.log(err);
 
             client.end(function (err) {
@@ -142,18 +142,58 @@ var TraittoDNA = function(trait, callback) {
                 if (err) throw err;
 
                 else if (result) {
-                    console.log(JSON.stringify(result));
-                    snpFrequencies = {
-                        total: results.rows.length
-                    }
-                    // for each user that has this trait, iterate through their snps and make a counter
-                    for (var i = 0; i < results.rows.length; i++) {
-                        if (snpFrequencies[results.rows[i].idUser]) {
-                            snpFrequencies[results.rows[i].idUser]++
-                        } else {
-                            snpFrequencies[results.rows[i].idUser] = 1;
+                    var users = []
+                    for (var i = 0; i < result.rows.length; i++) {
+                        if (users.indexOf(result.rows[i].iduser) < 0) {
+                            users.push(result.rows[i].iduser);
                         }
                     }
+
+                    snpFrequencies = {
+                        total: users.length
+                    }
+
+                    console.log(JSON.stringify(result));
+                    // for each user that has this trait, iterate through their snps and keep count
+                    // need another query to get all snps for every user
+                    
+                    var userList = "";
+                    for (var i = 0; i < users.length; i++ ) {
+                        userList += "'" + users[i] + "', "
+                    }
+                    userList = userList.substr(0, userList.length -2);
+                    console.log(userList);
+                    pg.connect(process.env.DATABASE_URL, function(err, client) {
+                        if (err) throw err;
+                        console.log('\nSELECT location, basepair from Ids_Snps WHERE idUser IN (' + userList + ')\n');
+                        client.query('SELECT location, basepair from Ids_Snps WHERE idUser IN (' + userList + ')', function(err, result) {
+                            if (err) console.log(err);
+
+                            client.end(function (err) {
+                                if (err) throw err;
+
+                                else if (result) {
+                                    console.log('\n');
+                                    console.log(JSON.stringify(result));
+                                }
+                            })
+                        });
+                        // snpFrequencies[result.rows[i].iduser] --> snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]
+
+                        for (var i = 0; i < users.length; i++) {
+                            if (snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]) {
+                                snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]++
+                            } else {
+                                snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location] = 1;
+                            }
+                        }
+                        console.log('snpFrequencies for '+trait+':\n')
+                        console.log(JSON.stringify(snpFrequencies));
+
+                        callback(snpFrequencies, trait);
+                    });
+
+
                     
                 }
 
@@ -163,23 +203,29 @@ var TraittoDNA = function(trait, callback) {
 }
 
 var TraitstoDNA = function(traits) {
+    console.log('entered traitstodna');
     // takes personality, makes inferences about snps
     // should take an array of traits, then..
     // select users who have those snps, 
     // select traits from those users
+    allSnpFrequencies = {};
+    var counter = 0;
 
-    pg.connect(process.env.DATABASE_URL, function (err, client) {
-        if (err) throw err;
+    for (var i = 0; i < traits.length; i++ ) {
+        TraittoDNA(traits[i], function(snpFrequencies, trait) {
+            if (snpFrequencies) {
+                allSnpFrequencies[trait] = snpFrequencies;
+                counter++
+            }
+        })
+    }
+    console.log(counter);
+    if (counter == traits.length) {
+        console.log('all snp freqs: ' + JSON.stringify(allSnpFrequencies));
+        return allSnpFrequencies;
+    }
 
-        var traitList = "";
-        for (var i = 0; i < traits.length; i++ ) {
-            traitList += "'" + traits[i] + "', "
-        }
-        traitList = traitList.substr(0, traitList.length -2);
-        console.log(traitList);
-
-        
-    });    
+   
 
 }
 
