@@ -149,7 +149,7 @@ var TraittoDNA = function(trait, callback) {
                         }
                     }
 
-                    snpFrequencies = {
+                    var snpFrequencies = {
                         total: users.length
                     }
 
@@ -178,9 +178,8 @@ var TraittoDNA = function(trait, callback) {
                                     } else if (result) {
                                         console.log('\n basepair/location results:');
                                         console.log(JSON.stringify(result));
-                                        console.log('length of users = ' + users.length);
-                                        console.log('users: ' + users);
-                                        for (var i = 0; i < users.length; i++) {
+                                        
+                                        for (var i = 0; i < result.rows.length; i++) {
                                             if (snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]) {
                                                 snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]++
                                             } else {
