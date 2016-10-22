@@ -170,27 +170,31 @@ var TraittoDNA = function(trait, callback) {
                             if (err) console.log(err);
 
                             client.end(function (err) {
-                                if (err) throw err;
-
-                                else if (result) {
+                                if (err) {
+                                    console.log(err);
+                                    callback(true, false);
+                                } else if (result) {
                                     console.log('\n');
                                     console.log(JSON.stringify(result));
+
+                                    for (var i = 0; i < users.length; i++) {
+                                        if (snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]) {
+                                            snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]++
+                                        } else {
+                                            snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location] = 1;
+                                        }
+                                    }
+                                    
+                                    console.log('snpFrequencies for '+trait+':\n')
+                                    console.log(JSON.stringify(snpFrequencies));
+
+                                    callback(snpFrequencies, trait);
                                 }
                             })
                         });
                         // snpFrequencies[result.rows[i].iduser] --> snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]
 
-                        for (var i = 0; i < users.length; i++) {
-                            if (snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]) {
-                                snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]++
-                            } else {
-                                snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location] = 1;
-                            }
-                        }
-                        console.log('snpFrequencies for '+trait+':\n')
-                        console.log(JSON.stringify(snpFrequencies));
-
-                        callback(snpFrequencies, trait);
+                        
                     });
 
 
@@ -214,7 +218,9 @@ var TraitstoDNA = function(traits) {
     for (var i = 0; i < traits.length; i++ ) {
         TraittoDNA(traits[i], function(snpFrequencies, trait) {
             if (snpFrequencies) {
-                allSnpFrequencies[trait] = snpFrequencies;
+                if (trait) {
+                    allSnpFrequencies[trait] = snpFrequencies;
+                }
                 counter++
             }
         })
