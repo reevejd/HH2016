@@ -307,7 +307,7 @@ var snpToTrait = function(location, basepair) {
 
 var DNAtoTraits = function(snps) {
     // first remove the id
-    delete snps[id];
+    delete snps.id;
     var allTraitFrequencies = {};
     var counter = 0;
 
@@ -331,6 +331,7 @@ var DNAtoTraits = function(snps) {
 }
 
 exports.getAssociations = function(userInfo, direction) {
+    console.log(JSON.stringify(userInfo));
     if (direction == "DNAtoTraits") {
         return DNAtoTraits(userInfo);
     } else if (direction == "TraitstoDNA") {
