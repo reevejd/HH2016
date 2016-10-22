@@ -177,13 +177,13 @@ var TraittoDNA = function(trait, callback) {
                                 }
                             })
                         });
-
+                        // snpFrequencies[result.rows[i].iduser] --> snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]
 
                         for (var i = 0; i < users.length; i++) {
-                            if (snpFrequencies[result.rows[i].iduser]) {
-                                snpFrequencies[result.rows[i].iduser]++
+                            if (snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]) {
+                                snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]++
                             } else {
-                                snpFrequencies[result.rows[i].iduser] = 1;
+                                snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location] = 1;
                             }
                         }
                         console.log('snpFrequencies for '+trait+':\n')
@@ -219,8 +219,8 @@ var TraitstoDNA = function(traits) {
         })
     }
     console.log(counter);
-    console.log('all snp freqs: ' + JSON.stringify(allSnpFrequencies));
     if (counter == traits.length) {
+        console.log('all snp freqs: ' + JSON.stringify(allSnpFrequencies));
         return allSnpFrequencies;
     }
 
