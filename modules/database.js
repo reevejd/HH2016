@@ -163,7 +163,7 @@ var TraittoDNA = function(trait, callback) {
                     }
                     userList = userList.substr(0, userList.length -2);
                     
-                    if (userList == "") {callback(true, false);}
+                    if (userList == "" || userList.length < 2) {callback(true, false);}
 
                     console.log(userList);
                     pg.connect(process.env.DATABASE_URL, function(err, client) {
@@ -178,7 +178,8 @@ var TraittoDNA = function(trait, callback) {
                                 } else if (result) {
                                     console.log('\n basepair/location results:');
                                     console.log(JSON.stringify(result));
-
+                                    console.log('length of users = ' + users.length);
+                                    console.log('users: ' + users);
                                     for (var i = 0; i < users.length; i++) {
                                         if (snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]) {
                                             snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]++
