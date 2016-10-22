@@ -85,7 +85,7 @@ var associateUserTraits = function(id, traits) {
     console.log('entered associateUserTraits');
     var traitList = "";
     for (var i = 0; i < traits.length; i++ ) {
-        traitList += traits[i] + ", "
+        traitList += "'" + traits[i] + "', "
     }
     traitList = traitList.substr(0, traitList.length -2);
     console.log(traitList);
@@ -99,9 +99,9 @@ var associateUserTraits = function(id, traits) {
 
                 if (err) throw err;
 
-                else {
+                else if (result) {
                     console.log('User trait Ids:\n')
-                    console.log(JSON.stringify(result.rows));
+                    console.log(JSON.stringify(result));
                 }
             });
         });
