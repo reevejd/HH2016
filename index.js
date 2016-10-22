@@ -62,23 +62,22 @@ app.get('/genometoken', function(req, res) {
         }
     });
 
-    //Lets try to make a HTTPS GET request to modulus.io's website.
-  //All we did here to make HTTPS call is changed the `http` to `https` in URL.
-/*  request('https://modulus.io', function (error, response, body) {
-      //Check for error
-      if(error){
-          return console.log('Error:', error);
+
+    //Lets configure and request
+    request({
+        url: 'https://api.23andme.com/1/user/', //URL to hit
+        //qs: {from: 'blog example', time: +new Date()}, //Query string data
+        method: 'GET', //Specify the method
+        headers: { //We can define headers too
+            'Authorization': 'Bearer' + accessToken
         }
-
-      //Check for right status code
-      if(response.statusCode !== 200){
-          return console.log('Invalid Status Code Returned:', response.statusCode);
+    }, function(error, response, body){
+        if(error) {
+            console.log(error);
+        } else {
+            console.log(response.statusCode, body);
         }
-
-        //All is good. Print the body
-        console.log(body); // Show the HTML for the Modulus homepage.
-
-});*/
+    });
     /*request({
         url: 'https://api.23andme.com/token/', //URL to hit
         //qs: {from: 'blog example', time: +new Date()}, //Query string data
