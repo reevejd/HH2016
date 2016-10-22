@@ -163,42 +163,43 @@ var TraittoDNA = function(trait, callback) {
                     }
                     userList = userList.substr(0, userList.length -2);
                     
-                    if (userList == "" || userList.length < 2) {console.log('early callback'); callback(true, false);}
+                    if (userList == "" || userList.length < 2) {console.log('early callback'); callback(true, false);} else {
 
-                    console.log(userList);
-                    pg.connect(process.env.DATABASE_URL, function(err, client) {
-                        if (err) throw err;
-                        console.log('\nSELECT location, basepair from Ids_Snps WHERE idUser IN (' + userList + ')\n');
-                        client.query('SELECT location, basepair from Ids_Snps WHERE idUser IN (' + userList + ')', function(err, result) {
-                            if (err) console.log(err);
+                        console.log(userList);
+                        pg.connect(process.env.DATABASE_URL, function(err, client) {
+                            if (err) throw err;
+                            console.log('\nSELECT location, basepair from Ids_Snps WHERE idUser IN (' + userList + ')\n');
+                            client.query('SELECT location, basepair from Ids_Snps WHERE idUser IN (' + userList + ')', function(err, result) {
+                                if (err) console.log(err);
 
-                            client.end(function (err) {
-                                if (err) {
-                                    console.log(err);
-                                } else if (result) {
-                                    console.log('\n basepair/location results:');
-                                    console.log(JSON.stringify(result));
-                                    console.log('length of users = ' + users.length);
-                                    console.log('users: ' + users);
-                                    for (var i = 0; i < users.length; i++) {
-                                        if (snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]) {
-                                            snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]++
-                                        } else {
-                                            snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location] = 1;
+                                client.end(function (err) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else if (result) {
+                                        console.log('\n basepair/location results:');
+                                        console.log(JSON.stringify(result));
+                                        console.log('length of users = ' + users.length);
+                                        console.log('users: ' + users);
+                                        for (var i = 0; i < users.length; i++) {
+                                            if (snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]) {
+                                                snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]++
+                                            } else {
+                                                snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location] = 1;
+                                            }
                                         }
+                                        
+                                        console.log('snpFrequencies for '+trait+':\n')
+                                        console.log(JSON.stringify(snpFrequencies));
+
+                                        callback(snpFrequencies, trait);
                                     }
-                                    
-                                    console.log('snpFrequencies for '+trait+':\n')
-                                    console.log(JSON.stringify(snpFrequencies));
+                                })
+                            });
+                            // snpFrequencies[result.rows[i].iduser] --> snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]
 
-                                    callback(snpFrequencies, trait);
-                                }
-                            })
+                            
                         });
-                        // snpFrequencies[result.rows[i].iduser] --> snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]
-
-                        
-                    });
+                    }
 
 
                     
