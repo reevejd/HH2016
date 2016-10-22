@@ -36,6 +36,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/genometoken', function(req, res) {
+    var accessToken;
     console.log(req.query.code);
     res.render('index');
 
@@ -56,6 +57,8 @@ app.get('/genometoken', function(req, res) {
       } else {
           console.log(response.statusCode, body);
           console.log(body.access_token);
+          accessToken = body.access_token;
+          console.log(accessToken);
         }
     });
     /*request({
