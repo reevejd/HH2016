@@ -36,8 +36,9 @@ app.get('/', function(req, res) {
 });
 
 app.get('/genometoken', function(req, res) {
-    console.log(req.query);
+    console.log(req.query.code);
     var codeString = req.query;
+    console.log
     res.render('index');
 
     request.post('https://api.23andme.com/token/', {
@@ -45,7 +46,7 @@ app.get('/genometoken', function(req, res) {
         client_id : 'be256e46c1e76dd5e8c76197f9168bed' ,
         client_secret : 'fdc2dceabe85b0336e7bc99b5eb6a4c3' ,
         grant_type: 'authorization_code',
-        code : codeString ,
+        code : req.query.code ,
         redirect_uri : 'http://localhost:8080/genometoken',
         scope :'genomes'
       },
