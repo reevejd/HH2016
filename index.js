@@ -58,10 +58,9 @@ app.get('/genometoken', function(req, res) {
           console.log(response.statusCode, body);
           console.log(body.access_token);
           accessToken = body.access_token;
-          //Lets configure and request
+          //getting the user id
           request({
               url: 'https://api.23andme.com/1/user/', //URL to hit
-              //qs: {from: 'blog example', time: +new Date()}, //Query string data
               method: 'GET', //Specify the method
               headers: { //We can define headers too
                   'Authorization': 'Bearer' + ' ' + accessToken
@@ -71,13 +70,12 @@ app.get('/genometoken', function(req, res) {
                   console.log(error);
               } else {
                   console.log(response.statusCode, body);
+                  console.log(body.profiles.id);
               }
           });
         }
     });
 
-     console.log(accessToken);
-     console.log("Bearer" + " " + accessToken);
 
     /*request({
         url: 'https://api.23andme.com/token/', //URL to hit
