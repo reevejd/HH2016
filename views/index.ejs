@@ -12,6 +12,7 @@ crossorigin="anonymous"></script>
 
 <h1>Hello</h1>
 <button id="clickButton"></button>
+
 <!--<div id="wrapper">Button...</div>
 <script>
     window.onload = function () {
@@ -20,10 +21,12 @@ crossorigin="anonymous"></script>
     };
 </script>-->
 
-<form action="/" method="post">
+<script src="scripts/redirectToGenome.js"></script>
+
+<form action="/" method="post" onsubmit="return redirect()">
     <label for="twitter_handle">Twitter Handle:</label>
     <input type="text" id="twitter_handle" name="twitter_handle" placeholder="Never Forget" />
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Submit" onclick="" />
 </form>
 </body>
 
