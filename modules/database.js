@@ -144,7 +144,7 @@ var TraittoDNA = function(trait, callback) {
                 else if (result) {
                     var users = []
                     for (var i = 0; i < result.rows.length; i++) {
-                        if (!users.includes(result.rows[i].iduser)) {
+                        if (users.indexOf(result.rows[i].iduser) < 0) {
                             users.push(result.rows[i].iduser);
                         }
                     }
