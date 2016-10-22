@@ -162,10 +162,10 @@ var TraittoDNA = function(trait, callback) {
                         userList += "'" + users[i] + "', "
                     }
                     userList = userList.substr(0, userList.length -2);
-                    
+                    console.log('userList: ' + userlist)
                     if (userList == "" || userList.length < 2) {console.log('early callback'); callback(true, false);} else {
-
-                        console.log(userList);
+                        
+                        console.log('userList in function: ' + userList);
                         pg.connect(process.env.DATABASE_URL, function(err, client) {
                             if (err) throw err;
                             console.log('\nSELECT location, basepair from Ids_Snps WHERE idUser IN (' + userList + ')\n');
