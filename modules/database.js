@@ -162,7 +162,7 @@ var TraittoDNA = function(trait, callback) {
                         userList += "'" + users[i] + "', "
                     }
                     userList = userList.substr(0, userList.length -2);
-                    console.log('userList: ' + userlist)
+                    console.log('userList: ' + userList)
                     if (userList == "" || userList.length < 2) {console.log('early callback'); callback(true, false);} else {
                         
                         console.log('userList in function: ' + userList);
