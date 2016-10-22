@@ -164,11 +164,15 @@ app.post('/test', function(req, res) {
     if (err) throw err;
 
     // execute a query on our database
-    client.query('CREATE DATABASE test', function (err, result) {
+    client.query('INSERT INTO testtable VALUES (-99, -99)', function (err, result) {
         if (err) throw err;
 
         client.end(function (err) {
         if (err) throw err;
+
+        else {
+            console.log(JSON.stringify(result.rows));
+        }
         });
     });
     });
