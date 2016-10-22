@@ -224,15 +224,17 @@ var TraitstoDNA = function(traits) {
                 if (trait) {
                     allSnpFrequencies[trait] = snpFrequencies;
                 }
-                counter++
+                counter++;
+
+                if (counter == traits.length) {
+                    console.log('all snp freqs: ' + JSON.stringify(allSnpFrequencies));
+                    return allSnpFrequencies;
+                }
             }
         })
     }
-    console.log(counter);
-    if (counter == traits.length) {
-        console.log('all snp freqs: ' + JSON.stringify(allSnpFrequencies));
-        return allSnpFrequencies;
-    }
+    
+    
 
    
 
