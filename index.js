@@ -1,7 +1,23 @@
-var request = require('request'); // for making API calls 
+var request = require('request'); // for making API calls
 var bodyParser = require('body-parser');
 
 // port = process.env.PORT for deploying on cloud host (need this for heroku anyway, 8080 for local testing
+/*request({
+    url: 'https://modulus.io/contact/demo', //URL to hit
+    qs: {from: 'blog example', time: +new Date()}, //Query string data
+    method: 'POST',
+    //Lets post the following key/values as form
+    json: {
+        field1: 'data',
+        field2: 'data'
+    }
+}, function(error, response, body){
+    if(error) {
+        console.log(error);
+    } else {
+        console.log(response.statusCode, body);
+}
+});*/
 
 // setting up express 4 server & socket.io
 var express = require('express');
