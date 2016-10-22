@@ -7,6 +7,8 @@ pg.defaults.ssl = true;
 
 exports.insertUser = function(userJson) {
     // need to insert into traits first
+    console.log('entered insertuser');
+    console.log(JSON.stringify(userJson));
     insertTraits(userJson.geneticData.id, userJson.traits, function(finished) {
         if (finished) {
 
@@ -15,13 +17,16 @@ exports.insertUser = function(userJson) {
 }
 
 var insertTraits = function(idUser, traits, callback) {
-    var loopCounter = 0;
+    for (i = 0; i < traits.length; i++) {
+        updateTraitsTable(traits[i]);    
+    }           
+}
+
+var updateTraitsTable = function(traits) {
     pg.connect(process.env.DATABASE_URL, function (err, client) {
         if (err) throw err;
-
-        for (i = 0; i < traits.length; i++) {
-            client.query('INSERT INTO Traits (idUser, trait) VALUES ($1, $2)', [idUser, traits[i]], function (err, result) {
-            if (err) throw err;
+        client.query('INSERT INTO Traits (trait) VALUES ($1)', [traits[i]], function (err, result) {
+            if (err) console.log(err);
 
             client.end(function (err) {
                 loopCounter++;
@@ -32,14 +37,7 @@ var insertTraits = function(idUser, traits, callback) {
                     //console.log(JSON.stringify(result.rows));
                 }
             });
-
-            if (loopCounter == traits.length - 1) {
-                callback(true);
-            }
         });
-        }
-        
-    });   
+    });
 }
-
 
