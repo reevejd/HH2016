@@ -9,7 +9,7 @@ pg.defaults.ssl = true;
 var insertSnp = function(id, location, basepair) {
     pg.connect(process.env.DATABASE_URL, function (err, client) {
         if (err) throw err;
-        client.query('INSERT INTO Snps_Ids (idUser, location, basepair) VALUES ($1, $2, $3)', [id, location, basepair], function (err, result) {
+        client.query('INSERT INTO Ids_Snps (idUser, location, basepair) VALUES ($1, $2, $3)', [id, location, basepair], function (err, result) {
             if (err) console.log(err);
 
             client.end(function (err) {
