@@ -194,4 +194,4 @@ app.post('/test', function(req, res) {
     });
     });
 
-    res.send({status: "Success"})
+    res.send({status: "Success"});
