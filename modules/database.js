@@ -55,7 +55,7 @@ var insertTrait = function(trait) {
     });
 }
 
-var insertTraits = function(idUser, traits, callback) {
+var insertTraits = function(traits) {
     console.log('entered insertTraits');
     for (i = 0; i < traits.length; i++) {
         insertTrait(traits[i]);    
@@ -82,6 +82,7 @@ var updateTraitsTable = function(traits) {
 }
 
 var associateUserTraits = function(id, traits) {
+    console.log('entered associateUserTraits');
     var traitList = "";
     for (var i = 0; i < traits.length; i++ ) {
         traitlist += traits[i] + ", "
@@ -111,6 +112,7 @@ exports.insertUser = function(userJson) {
     // need to insert into traits first
     console.log('entered insertuser');
     console.log(JSON.stringify(userJson));
+    
     insertSnps(userJson.id, userJson.geneticData);
     insertTraits(userJson.traits);
     setTimeout(function() {
