@@ -148,7 +148,11 @@ var TraittoDNA = function(trait, callback) {
                     }
                     // for each user that has this trait, iterate through their snps and make a counter
                     for (var i = 0; i < results.rows.length; i++) {
-                        if 
+                        if (snpFrequencies[results.rows[i].idUser]) {
+                            snpFrequencies[results.rows[i].idUser]++
+                        } else {
+                            snpFrequencies[results.rows[i].idUser] = 1;
+                        }
                     }
                     
                 }
