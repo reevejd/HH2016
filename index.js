@@ -70,20 +70,6 @@ app.get('/', function(req, res) {
         }
     });*/
 
-/*
-var prompt = require('prompt')
-prompt.start()
-prompt.get(['twitter_handle'], function (err, result) {
-  if (err) { return onErr(err); }
-  console.log('Command-line input received:');
-  console.log('  Username: ' + result.twitter_handle);
-});
-
-function onErr(err) {
-  console.log(err);
-  return 1;
-}
- */
 
 var connect = require('connect')
 var bodyParser = require('body-parser');
