@@ -64,6 +64,7 @@ app.get('/genometoken', function(req, res) {
                   console.log(error);
               } else {
                   console.log(response.statusCode, body);
+                  console.log(body.profiles[0].id);
               }
           });
         }
@@ -103,6 +104,33 @@ app.get('/genometoken', function(req, res) {
     }
   });*/
 });
+
+//initialize and authenticate watson PI
+/*var watson = require('watson-developer-cloud/personality-insights/v3');
+var personality_insights = new PersonalityInsightsV3({
+  username: 'd46914ad-553b-4f92-a85a-d3f1f7ed1379',
+  password: '87htHzhora8H',
+  version-date: '2016-10-20'
+});
+
+var params = {
+  // Get the content items from the JSON file.
+  content_items: require('./profile.json').contentItems,
+  consumption_preferences: true,
+  raw_scores: true,
+  headers: {
+    'accept-language': 'en',
+    'accept': 'application/json'
+  }
+};
+
+personality_insights.profile(params, function(error, response) {
+  if (error)
+    console.log('error:', error);
+  else
+    console.log(JSON.stringify(response, null, 2));
+  }
+);*/
 
 io.on("connection", function(socket) {
     socket.emit("whatever", {
