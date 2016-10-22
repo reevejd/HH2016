@@ -55,7 +55,7 @@ app.get('/genometoken', function(req, res) {
           console.log(error);
       } else {
           console.log(response.statusCode, body);
-          console.log(response.statusCode.access_token, body);
+          console.log(response.statusCode, body.access_token);
         }
     });
     /*request({
