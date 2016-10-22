@@ -28,6 +28,11 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
+//twitter done url
+app.get('/ttam', function(req, res) {
+  res.render('ttam');
+});
+
 app.get('/genometoken', function(req, res) {
     var accessToken;
     console.log(req.query.code);
@@ -159,8 +164,7 @@ personality_insights.profile(params, function(error, response) {
     console.log('error:', error);
   else
     console.log(JSON.stringify(response, null, 2));
-  }
-);
+  });
 }//end of function
 
 //function to get twitter
@@ -190,7 +194,4 @@ app.post('/test', function(req, res) {
     });
     });
 
-    res.send({status: "Success"});
-
-
-})
+    res.send({status: "Success"})
