@@ -28,7 +28,7 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
-/*app.get('/genometoken', function(req, res) {
+app.get('/genometoken', function(req, res) {
     var accessToken;
     console.log(req.query.code);
     res.render('index');
@@ -68,7 +68,7 @@ app.get('/', function(req, res) {
               }
           });
         }
-    });*/
+    });
 
 
 var connect = require('connect')
@@ -162,6 +162,8 @@ personality_insights.profile(params, function(error, response) {
   }
 );
 }//end of function
+
+//function to get twitter
 
 app.post('/test', function(req, res) {
     console.log('user clicked button');
