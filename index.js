@@ -42,7 +42,8 @@ app.get('/', function(req, res) {
 });
 
 app.get('/genometoken', function(req, res) {
-    console.log(req.params.genometoken);
+    console.log(req.params);
+    res.render('index');
 })
 
 io.on("connection", function(socket) {
