@@ -47,7 +47,7 @@ app.get('/genometoken', function(req, res) {
         grant_type: 'authorization_code',
         code : req.query.code ,
         redirect_uri : 'http://localhost:8080/genometoken',
-        scope :'genomes'
+        scope :'genomes%20basic'
       },
       json: true
     }, function (error, response, body) {
@@ -61,6 +61,24 @@ app.get('/genometoken', function(req, res) {
           console.log(accessToken);
         }
     });
+
+    //Lets try to make a HTTPS GET request to modulus.io's website.
+  //All we did here to make HTTPS call is changed the `http` to `https` in URL.
+/*  request('https://modulus.io', function (error, response, body) {
+      //Check for error
+      if(error){
+          return console.log('Error:', error);
+        }
+
+      //Check for right status code
+      if(response.statusCode !== 200){
+          return console.log('Invalid Status Code Returned:', response.statusCode);
+        }
+
+        //All is good. Print the body
+        console.log(body); // Show the HTML for the Modulus homepage.
+
+});*/
     /*request({
         url: 'https://api.23andme.com/token/', //URL to hit
         //qs: {from: 'blog example', time: +new Date()}, //Query string data
