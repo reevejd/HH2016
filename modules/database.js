@@ -154,6 +154,8 @@ var TraittoDNA = function(trait, callback) {
                             snpFrequencies[result.rows[i].idUser] = 1;
                         }
                     }
+                    console.log('snpFrequencies for '+trait+':\n')
+                    console.log(JSON.stringify(snpFrequencies));
 
                     callback(snpFrequencies, trait);
 
