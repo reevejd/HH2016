@@ -37,8 +37,6 @@ app.get('/', function(req, res) {
 
 app.get('/genometoken', function(req, res) {
     console.log(req.query.code);
-    var codeString = req.query;
-    console.log
     res.render('index');
 
     request.post('https://api.23andme.com/token/', {
@@ -57,6 +55,7 @@ app.get('/genometoken', function(req, res) {
           console.log(error);
       } else {
           console.log(response.statusCode, body);
+          console.log(response.access_token)
         }
     });
     /*request({
