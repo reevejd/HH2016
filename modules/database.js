@@ -271,8 +271,8 @@ var snpToTrait = function(location, basepair) {
                         console.log('userList in function: ' + userList);
                         pg.connect(process.env.DATABASE_URL, function(err, client) {
                             if (err) throw err;
-                            console.log('\nSELECT trait from Ids_Snps INNER JOIN traits ON (Ids_Snps.idUser = traits.idUser) WHERE idUser IN (' + userList + ')\n');
-                            client.query('SELECT trait from Ids_Snps INNER JOIN traits ON (Ids_Snps.idUser = traits.idUser) WHERE idUser IN (' + userList + ')', function(err, result) {
+                            console.log('\nSELECT trait from userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE userTraits.idUser IN (' + userList + ')\n');
+                            client.query('SELECT trait from userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE userTraits.idUser IN (' + userList + ')', function(err, result) {
                                 if (err) console.log(err);
 
                                 client.end(function (err) {
