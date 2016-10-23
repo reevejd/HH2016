@@ -9,9 +9,15 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
 
     <script>
+    var numCharts = 0;
+    var createChart = function(snp, trait, frequency) {
+      numCharts++;
+      var chartId = 'chart'+numCharts;
+      var $div = $('<div/>').appendTo('body');
+      $div.attr('id', chartId);
 
-    var createChart = function(target, snp, trait, frequency) {
-      $(target).highcharts({
+
+      $('#'+chartId).highcharts({
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
@@ -59,8 +65,11 @@
 
       // for each trait, going to plot frequency
 
-      createChart("#testchart", 'snpName', 'traitName', 'frequency');
 
+      createChart('snpName', 'traitName', 0.734);
+      createChart('snpName2', 'traitName2', 0.6);
+
+        
     });
 
     </script>
