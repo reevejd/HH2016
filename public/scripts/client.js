@@ -3,12 +3,28 @@ var socket = io()
 
 
 
-socket.on("whatever", function(data) {
-    console.log('You got data from the server:')
-    console.log(data);
-});
-
 $(document).ready(function() {
+
+    $('#sentdata').on('click', function() {
+        //alert(JSON.parse($('#datainput').val()));
+        $.ajax({
+            method: "POST",
+            url: '/sim',
+            data: {
+                data: JSON.parse($('#datainput').val())
+            }
+        })
+    })
+
+    $('#23metoPers').on('click', function() {
+        // need to pop up a modal with 23 and me insights
+    });
+
+    $('#TwittertoGenetics').on('click', function() {
+        // need to pop up a dialog box for twitter handle
+    });
+    
+
     if (window.location.href.includes('?code=')) {
         var thisUser;
         thisUser = window.location.href.split('?code=')[1];

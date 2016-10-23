@@ -180,6 +180,11 @@ personality_insights.profile(params, function(error, response) {
   });
 }//end of function
 
+app.post('/sim', function(req, res) {
+  console.log(req.body.data);
+  db.insertUser(req.body.data);
+})
+
 
 app.post('/test', function(req, res) {
     console.log('user clicked button');
@@ -365,8 +370,13 @@ function snpMaster(dnaCode, callback){
                       } else {
                           //console.log(response.statusCode, body);
                           body = JSON.parse(body);
+
                           //console.log(body);
                           callback(body);
+
+                          console.log('printing out body: \n')
+                          console.log(body);
+
                       }
                   });
               }
