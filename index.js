@@ -375,7 +375,7 @@ function snpMaster(dnaCode, callback){
                           //console.log(body);
                           callback(body);
 
-                          console.log('printing out body: \n')
+                          //console.log('printing out body: \n')
                           console.log(body);
 
                       }

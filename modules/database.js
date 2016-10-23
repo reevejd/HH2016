@@ -17,7 +17,7 @@ var insertSnp = function(id, location, basepair) {
                 if (err) throw err;
 
                 else {
-                    console.log(JSON.stringify(result));
+                    console.log("query result " + JSON.stringify(result));
                 }
             });
         });
@@ -97,7 +97,7 @@ var associateUserTraits = function(id, traits) {
 
                 else if (result) {
                     console.log('User trait Ids:\n')
-                    console.log(JSON.stringify(result));
+                    console.log("query result " + JSON.stringify(result));
                     for (var i = 0; i < result.rows.length; i++ ) {
                         associateUserTrait(id, result.rows[i].idtrait);
 

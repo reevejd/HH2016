@@ -1,4 +1,3 @@
-var socket = io()
 
 
 
@@ -23,7 +22,7 @@ $(document).ready(function() {
     $('#TwittertoGenetics').on('click', function() {
         // need to pop up a dialog box for twitter handle
     });
-    
+
 
     if (window.location.href.includes('?code=')) {
         var thisUser;
