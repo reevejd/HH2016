@@ -1,7 +1,7 @@
 <html>
   <head>
 
-    
+
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
     crossorigin="anonymous"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -15,7 +15,7 @@
     ]
     var numCharts = 0;
     var currIndex = -1;
-    
+
     var createChart = function(snp, trait, frequency) {
       numCharts++;
       currIndex = (currIndex+1) % 4;
@@ -81,14 +81,14 @@
       // for each trait, going to plot frequency
 
           //display these charts for testing
-    
-          createChart('snpName', 'traitName', 0.734);
-          createChart('snpName2', 'traitName2', 0.6);
-          createChart('snpName2', 'traitName2', 0.3);
-          createChart('snpName2', 'traitName2', 0.9);
-          createChart('snpName2', 'traitName2', 0.45);
-          createChart('snpName2', 'traitName2', 0.87);
-   
+
+          createChart('rs927544', 'cautious', 0.734);
+          createChart('rs9534507', 'easy-going', 0.6);
+          createChart('rs4142900', 'introverted', 0.3);
+          createChart('rs1328674', 'analytical', 0.9);
+          createChart('rs2770296', 'confident', 0.45);
+          createChart('rs731779', 'outgoing', 0.87);
+
       });
 
 

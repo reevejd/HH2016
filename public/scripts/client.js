@@ -18,7 +18,8 @@ $(document).ready(function() {
     $('#23metoPers').on('click', function() {
         // need to pop up a modal with 23 and me insights
         console.log('Sending to only genetics');
-        $.ajax({
+        location.href = "https://hh2016.herokuapp.com/datavisualization";
+        /*$.ajax({
             method: "POST",
             url: "/send-only-genetics",
             data: {
@@ -27,7 +28,7 @@ $(document).ready(function() {
             success: function(data) {
                 console.log(data);
             }
-        });
+        });*/
     });
 
     $('#TwittertoGenetics').on('click', function() {
@@ -94,6 +95,9 @@ $(document).ready(function() {
                 twitterHandle: getCookie("thisUserTwitterHandle")
             }
         });
+        setTimeout(function() {
+            alert('Thanks for adding your genetic and personality insights to our database.');
+        }, 1000)
     })
 });
 
