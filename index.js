@@ -392,3 +392,121 @@ function snpMaster(dnaCode, callback){
         }
     });
 }//end dnaMaster
+
+app.post('/send-only-genetics', function(req, res) {
+    console.log('user is sending client genetic data only');
+    //console.log(JSON.stringify(req));
+    console.log(JSON.stringify(req.body));
+
+
+    var snpCalls;
+    snpMaster(req.body.code, function(snpResult) {
+        if (snpResult){
+            snpCalls = snpResult;
+            var info = {
+                        	"id": snpResult.id ,
+                        	"geneticData": {
+                        		"rs927544": snpResult.rs927544,
+                        		"rs9534507": snpResult.rs9534507,
+                            "rs4142900": snpResult.rs4142900,
+                            "rs1328674": snpResult.rs1328674,
+                            "rs2770296": snpResult.rs2770296,
+                            "rs731779": snpResult.rs731779,
+                            "rs17289394": snpResult.rs17289394,
+                            "rs7333412": snpResult.rs7333412,
+                            "rs9316235": snpResult.rs9316235,
+                            "rs9534505": snpResult.rs9534505,
+                            "rs582385": snpResult.rs582385,
+                            "rs2070037": snpResult.rs2070037,
+                            "rs2296973": snpResult.rs2296973,
+                            "rs2296972": snpResult.rs2296972,
+                            "rs3803189": snpResult.rs3803189,
+                            "rs4941573": snpResult.rs4941573,
+                            "rs1923885": snpResult.rs1923885,
+                            "rs1923884": snpResult.rs1923884,
+                          }
+              }
+                        //db.insertUser(info);//greatness for genetics
+                        console.log(JSON.stringify(db.getAssociations(info, "DNAtoTraits")));
+                        //console.log(info);
+          }
+        })
+
+    res.send({status: "Success"});
+});//end only genetics
+
+app.post('/send-only-twitter', function(req, res) {
+    console.log('user is sending client genetic data only');
+    //console.log(JSON.stringify(req));
+    console.log(JSON.stringify(req.body));
+
+    var pi_output;
+    Twitter_API(req.body.twitterHandle, function(result) {
+      if (result) {
+        pi_output = result;
+        console.log(pi_output.personality[0].name);
+        console.log(pi_output.personality[0].percentile);
+
+        var traits = [];
+
+        for(var i = 0; i < 5; i++)
+        {
+          if(pi_output.personality[i].percentile >= 0.70)
+          {
+            if(pi_output.personality[i].name == 'Openness')
+            {
+               traits.push("cautious");
+            }
+            else if (pi_output.personality[i].name == 'Conscientiousness')
+            {
+              traits.push("easy-going");
+            }
+            else if(pi_output.personality[i].name == 'Extraversion')
+            {
+              traits.push("introverted");
+            }
+            else if(pi_output.personality[i].name == 'Agreeableness')
+            {
+              traits.push("analytical");
+            }
+            else
+            {
+              traits.push("confident");
+            }
+          }
+          else if(pi_output.personality[i].percentile <= 0.30)
+          {
+            if(pi_output.personality[i].name == 'Openness')
+            {
+               traits.push("curious");
+            }
+            else if(pi_output.personality[i].name == 'Conscientiousness')
+            {
+              traits.push("organized");
+            }
+            else if (pi_output.personality[i].name == 'Extraversion')
+            {
+              traits.push("extroverted");
+            }
+            else if (pi_output.personality[i].name == 'Agreeableness')
+            {
+              traits.push("outgoing");
+            }
+            else
+            {
+              traits.push("sensitive")
+            }
+          }
+        }
+        var info = {
+                      "traits": traits
+        }
+                    //db.insertUser(info);//greatness
+                    console.log(JSON.stringify(db.getAssociations(info, "TraitstoDNA")));
+                    //console.log(info);
+      }
+    })
+
+
+    res.send({status: "Success"});
+});

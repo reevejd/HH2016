@@ -17,10 +17,26 @@ $(document).ready(function() {
 
     $('#23metoPers').on('click', function() {
         // need to pop up a modal with 23 and me insights
+        console.log('Sending to on genetics');
+        $.ajax({
+            method: "POST",
+            url: "/send-only-genetics",
+            data: {
+                code: getCookie("thisUser")
+            }
+        });
     });
 
     $('#TwittertoGenetics').on('click', function() {
         // need to pop up a dialog box for twitter handle
+        console.log('Sending only twitter');
+        $.ajax({
+            method: "POST",
+            url: "/send-only-twitter",
+            data: {
+                twitterHandle: getCookie("thisUserTwitterHandle")
+            }
+        });
     });
 
 
