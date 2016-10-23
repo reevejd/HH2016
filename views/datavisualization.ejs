@@ -18,7 +18,7 @@
     
     var createChart = function(snp, trait, frequency) {
       numCharts++;
-      currIndex = (currIndex++) % 4;
+      currIndex = (currIndex+1) % 4;
       console.log(currIndex);
       console.log('colors: ' + colours[currIndex]);
       var chartId = 'chart'+numCharts;
