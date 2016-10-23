@@ -439,8 +439,6 @@ app.post('/send-only-genetics', function(req, res) {
                         //console.log(info);
           }
         })
-
-    res.send({status: "Success"});
 });//end only genetics
 
 app.post('/send-only-twitter', function(req, res) {
