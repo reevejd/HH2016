@@ -213,6 +213,7 @@ var snpToTrait = function(location, basepair, callback) {
                     if (userList == "" || userList.length < 2) {console.log('early callback'); callback(true, true, false);} else {
 
                         console.log('userList in function: ' + userList);
+                        console.log('SELECT DISTINCT trait from userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE userTraits.idUser IN (' + userList + ')')
                         pool.query('SELECT DISTINCT trait from userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE userTraits.idUser IN (' + userList + ')', function(err, result) {
                             if (err) console.log(err);
 
