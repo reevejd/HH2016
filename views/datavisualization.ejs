@@ -1,12 +1,12 @@
 <html>
   <head>
 
-  
+    
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
     crossorigin="anonymous"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
 
-    <script>
+  <script>
     var colours = [
       ['#3498db', '#27ae60'],
       ['#9b59b6', '#e74c3c'],
@@ -15,6 +15,7 @@
     ]
     var numCharts = 0;
     var currIndex = -1;
+    
     var createChart = function(snp, trait, frequency) {
       numCharts++;
       currIndex = (currIndex++) % 4;
@@ -72,21 +73,21 @@
       // handle traits first
 
       // for each trait, going to plot frequency
-        var hasCustomData = <% typeof genomicData == 'object' && genomicData %>
+        var genomicData = <% JSON.stringify(genomicData) %>
 
-        if (hasCustomData) {
-              // create custom charts
-              genomicData = JSON.stringify(genomicData);
-              console.log(genomicData);
-        } else {
+        console.log(genomicData);
           //display these charts for testing
+          /*
           createChart('snpName', 'traitName', 0.734);
           createChart('snpName2', 'traitName2', 0.6);
           createChart('snpName2', 'traitName2', 0.3);
           createChart('snpName2', 'traitName2', 0.9);
           createChart('snpName2', 'traitName2', 0.45);
           createChart('snpName2', 'traitName2', 0.87);
+          */
       }
+
+
 
 
       
@@ -95,7 +96,7 @@
         
     });
 
-    </script>
+  </script>
 
 
   </head>
