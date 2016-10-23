@@ -19,7 +19,7 @@ $(document).ready(function() {
         // need to pop up a modal with 23 and me insights
         console.log('Sending to only genetics');
         location.href = "https://hh2016.herokuapp.com/datavisualization";
-        $.ajax({
+        /*$.ajax({
             method: "POST",
             url: "/send-only-genetics",
             data: {
@@ -28,7 +28,7 @@ $(document).ready(function() {
             success: function(data) {
                 console.log(data);
             }
-        });
+        });*/
     });
 
     $('#TwittertoGenetics').on('click', function() {
