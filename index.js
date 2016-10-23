@@ -431,7 +431,7 @@ app.post('/send-only-genetics', function(req, res) {
                           if(results){
                             var DNAtoTraitsAssociations = results;
                             res.render('datavisualization', {
-                              genomicData: DNAtoTraitsAssociations;
+                              genomicData: DNAtoTraitsAssociations
                             })
                           }
 
