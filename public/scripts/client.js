@@ -3,12 +3,21 @@ var socket = io()
 
 
 
-socket.on("whatever", function(data) {
-    console.log('You got data from the server:')
-    console.log(data);
-});
-
 $(document).ready(function() {
+
+    $('#sentdata').on('click', function() {
+        //alert(JSON.parse($('#datainput').val()));
+        $.ajax({
+            method: "POST",
+            url: '/sim',
+            data: {
+                data: JSON.parse($('#datainput').val())
+            }
+        })
+    })
+
+
+
     if (window.location.href.includes('?code=')) {
         var thisUser;
         thisUser = window.location.href.split('?code=')[1];

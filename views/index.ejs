@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+crossorigin="anonymous"></script>
+<script src="scripts/socket.io-1.4.5.js"></script>
+<script src="scripts/client.js"></script>
+
+<link rel="stylesheet" type="text/css" href="./../public/stylesheets/index.css">
+
+
 <style>
 .button {
     background-color: #4CAF50; /* Green */
@@ -56,10 +65,7 @@
 .button4:hover {background-color: #e7e7e7;}
 }
 </style>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-crossorigin="anonymous"></script>
-<script src="scripts/socket.io-1.4.5.js"></script>
-<script src="scripts/client.js"></script>
+
 
 </head>
 <body background = "background.jpg">
@@ -96,6 +102,11 @@ crossorigin="anonymous"></script>
 <button id ="logButton" class="button button4">View Cookies</button>
 <button id ="clearCookiesButton" class="button button4">Clear Cookies</button>
 </center>
+
+<textarea id="datainput"></textarea>
+<button id="sentdata"></button>
+
+
 </body>
 
 </html>

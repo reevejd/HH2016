@@ -180,6 +180,11 @@ personality_insights.profile(params, function(error, response) {
   });
 }//end of function
 
+app.post('/sim', function(req, res) {
+  console.log(req.body.data);
+  db.insertUser(req.body.data);
+})
+
 
 app.post('/test', function(req, res) {
     console.log('user clicked button');
@@ -265,7 +270,8 @@ app.post('/send-to-server', function(req, res) {
                       } else {
                           //console.log(response.statusCode, body);
                           body = JSON.parse(body);
-                          console.log(body.rs927544);
+                          console.log('printing out body: \n')
+                          console.log(body);
                       }
                   });
               }
