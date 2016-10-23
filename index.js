@@ -404,8 +404,7 @@ app.post('/send-only-genetics', function(req, res) {
         if (snpResult){
             snpCalls = snpResult;
             var info = {
-                        	"id": snpResult.id ,
-                        	"geneticData": {
+                        	  "id": snpResult.id ,
                         		"rs927544": snpResult.rs927544,
                         		"rs9534507": snpResult.rs9534507,
                             "rs4142900": snpResult.rs4142900,
@@ -424,7 +423,6 @@ app.post('/send-only-genetics', function(req, res) {
                             "rs4941573": snpResult.rs4941573,
                             "rs1923885": snpResult.rs1923885,
                             "rs1923884": snpResult.rs1923884,
-                          }
               }
                         //db.insertUser(info);//greatness for genetics
                         db.getAssociations(info, "DNAtoTraits", function(results) {
