@@ -19,6 +19,8 @@
     var createChart = function(snp, trait, frequency) {
       numCharts++;
       currIndex = (currIndex++) % 4;
+      console.log(currIndex);
+      console.log('colors: ' + colours[currIndex]);
       var chartId = 'chart'+numCharts;
       var $div = $('<div/>').appendTo('body');
       $div.attr('id', chartId);
