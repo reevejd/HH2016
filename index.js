@@ -185,7 +185,7 @@ app.post('/test', function(req, res) {
     console.log('user clicked button');
     //console.log(JSON.stringify(req));
     console.log(JSON.stringify(req.body));
-    console.log(JSON.stringify(req.body.data1));
+    //console.log(JSON.stringify(req.body.data1));
 
     var info = {
       id: "user_id_here",
@@ -220,12 +220,112 @@ app.post('/send-to-server', function(req, res) {
 	    },
       traits: ["likes to read", "likes movies"]
     }*/
+
+    var pi_output;
+    Twitter_API(req.body.twitterHandle, function(result) {
+      if (result) {
+        pi_output = result;
+        console.log(pi_output.personality[0].name);
+        console.log(pi_output.personality[0].percentile);
+
+        var snpCalls;
+        snpMaster(req.body.code, function(snpResult) {
+          if (snpResult){
+            snpCalls = snpResult;
+            console.log(snpCalls);
+            console.log(pi_output.personality[0].name);
+            console.log(pi_output.personality[0].percentile);
+
+            var traits = [];
+            for{var i = 0; i < 5; i++}
+            {
+              if(pi_output.personality[i].percentile >= 0.70)
+              {
+                if(pi_output.personality[i].name == 'Openness')
+                {
+                   traits[i] = "cautious";
+                }
+                if else(pi_output.personality[i].name == 'Conscientiousness')
+                {
+                  traits[i] = "easy-going";
+                }
+                if else(pi_output.personality[i].name == 'Extraversion')
+                {
+                  traits[i] = "introverted";
+                }
+                if else(pi_output.personality[i].name == 'Agreeableness')
+                {
+                  traits[i] = "analytical";
+                }
+                else
+                {
+                  traits[i] = "confident"
+                }
+              }
+              else if(pi_output.personality[i].percentile <= 0.30)
+              {
+                if(pi_output.personality[i].name == 'Openness')
+                {
+                   traits[i] = "curious";
+                }
+                if else(pi_output.personality[i].name == 'Conscientiousness')
+                {
+                  traits[i] = "organized";
+                }
+                if else(pi_output.personality[i].name == 'Extraversion')
+                {
+                  traits[i] = "extroverted";
+                }
+                if else(pi_output.personality[i].name == 'Agreeableness')
+                {
+                  traits[i] = "outgoing";
+                }
+                else
+                {
+                  traits[i] = "sensitive"
+                }
+              }
+            }
+            var info = {
+                        	"id": snpResult.id ,
+                        	"geneticData": {
+                        		"rs927544": snpResult.rs927544,
+                        		"rs9534507": snpResult.rs9534507,
+                            "rs4142900": snpResult.rs4142900,
+                            "rs1328674": snpResult.rs1328674,
+                            "rs2770296": snpResult.rs2770296,
+                            "rs731779": snpResult.rs731779,
+                            "rs17289394": snpResult.rs17289394,
+                            "rs7333412": snpResult.rs7333412,
+                            "rs9316235": snpResult.rs9316235,
+                            "rs9534505": snpResult.rs9534505,
+                            "rs582385": snpResult.rs582385,
+                            "rs2070037": snpResult.rs2070037,
+                            "rs2296973": snpResult.rs2296973,
+                            "rs2296972": snpResult.rs2296972,
+                            "rs3803189": snpResult.rs3803189,
+                            "rs4941573": snpResult.rs4941573,
+                            "rs1923885": snpResult.rs1923885,
+                            "rs1923884": snpResult.rs1923884,
+                          },
+                        	"traits": ["likes to read", "likes romantic movies"]
+                        }
+                        db.insertUser(info);//greatness
+          }
+        })
+      }
+    })
+
+    res.send({status: "Success"});
+});
+
+function snpMaster(dnaCode, callback){
   request.post('https://api.23andme.com/token/', {
       form: {
         client_id : 'be256e46c1e76dd5e8c76197f9168bed' ,
         client_secret : 'fdc2dceabe85b0336e7bc99b5eb6a4c3' ,
         grant_type: 'authorization_code',
-        code : req.body.code ,
+        code : dnaCode ,
         redirect_uri : 'http://localhost:8080/genometoken',
         scope :'genomes basic'
       },
@@ -265,23 +365,12 @@ app.post('/send-to-server', function(req, res) {
                       } else {
                           //console.log(response.statusCode, body);
                           body = JSON.parse(body);
-                          console.log(body.rs927544);
+                          //console.log(body);
+                          callback(body);
                       }
                   });
               }
           });
         }
     });
-
-    var pi_output;
-    Twitter_API(req.body.twitterHandle, function(result) {
-      if (result) {
-        pi_output = result;
-        console.log(pi_output.personality[0].name);
-        console.log(pi_output.personality[0].percentile);
-      }
-    })
-
-
-    res.send({status: "Success"});
-});
+}//end dnaMaster
