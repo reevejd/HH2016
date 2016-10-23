@@ -404,9 +404,9 @@ app.post('/send-only-genetics', function(req, res) {
                         db.getAssociations(info, "DNAtoTraits", function(results) {
                           if(results){
                             var DNAtoTraitsAssociations = results;
-                            res.send({
-                              genomicData: DNAtoTraitsAssociations
-                            });
+        
+                             res.send(true);
+                            
                           }
 
                         });
