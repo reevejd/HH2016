@@ -1,6 +1,3 @@
-// user id
-// snps
-// traits
 var pg = require("pg");
 pg.defaults.ssl = true;
 
@@ -12,24 +9,46 @@ var pool = new Pool(process.env.DATABASE_URL);
 
 var insertSnp = function(id, location, basepair) {
     console.log('entered insertSnp')
-   
-        pool.query('INSERT INTO Ids_Snps (idUser, location, basepair) VALUES ($1, $2, $3)', [id, location, basepair], function (err, result) {
+    pg.connect(process.env.DATABASE_URL, function (err, client) {
+        if (err) throw err;
+        client.query('INSERT INTO Ids_Snps (idUser, location, basepair) VALUES ($1, $2, $3)', [id, location, basepair], function (err, result) {
             if (err) console.log(err);
 
+            client.end(function (err) {
+                if (err) throw err;
+
+                else {
+                    console.log("query result " + JSON.stringify(result));
+                }
+            });
         });
-    
-};
+    });
+}
 
 var insertSnps = function(id, geneticData) {
+    console.log('entered insertSnps');
+    
     for (var key in geneticData) {
         insertSnp(id, key, geneticData[key]);
-    }   
+    }
+        
 };
 
 var insertTrait = function(trait) {
     console.log('entered insertTrait');
-    pool.query('INSERT INTO Traits (trait) VALUES ($1)', [trait], function (err, result) {
-            
+    pg.connect(process.env.DATABASE_URL, function (err, client) {
+        if (err) throw err;
+        client.query('INSERT INTO Traits (trait) VALUES ($1)', [trait], function (err, result) {
+            if (err) console.log(err);
+
+            client.end(function (err) {
+                if (err) throw err;
+
+                else {
+                    console.log(JSON.stringify(result));
+                }
+            });
+        });
     });
 }
 
@@ -64,15 +83,25 @@ var associateUserTraits = function(id, traits) {
     traitList = traitList.substr(0, traitList.length -2);
     console.log(traitList);
 
-    pool.query('SELECT idTrait FROM Traits WHERE trait IN (' + traitList + ')', function (err, result) {
-        if (err) console.log(err);
+    pg.connect(process.env.DATABASE_URL, function (err, client) {
+        if (err) throw err;
+        client.query('SELECT idTrait FROM Traits WHERE trait IN (' + traitList + ')', function (err, result) {
+            if (err) console.log(err);
 
-            console.log('User trait Ids:\n')
-            console.log("query result " + JSON.stringify(result));
-            for (var i = 0; i < result.rows.length; i++ ) {
-                associateUserTrait(id, result.rows[i].idtrait);
+            client.end(function (err) {
 
-            }
+                if (err) throw err;
+
+                else if (result) {
+                    console.log('User trait Ids:\n')
+                    console.log("query result " + JSON.stringify(result));
+                    for (var i = 0; i < result.rows.length; i++ ) {
+                        associateUserTrait(id, result.rows[i].idtrait);
+
+                    }
+                }
+            });
+        });
     });
 }
 
@@ -303,10 +332,13 @@ exports.insertUser = function(userJson) {
     console.log('_________ \n\n')
     
     insertSnps(userJson.id, userJson.geneticData);
-    insertTraits(userJson.traits);
+
+    setTimeout(function() {
+        insertTraits(userJson.traits);
+    }, 3000)
     setTimeout(function() {
         associateUserTraits(userJson.id, userJson.traits);
-    }, 3000); // figure out a better way later
+    }, 6000); // figure out a better way later
     // insertTraits(userJson.id, userJson.traits, function(finished) {
     //     if (finished) {
 
