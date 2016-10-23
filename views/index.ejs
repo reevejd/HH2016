@@ -5,10 +5,12 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 crossorigin="anonymous"></script>
 <script src="scripts/socket.io-1.4.5.js"></script>
-<script src="scripts/client.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="./../public/stylesheets/index.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<script src="scripts/client.js"></script>
 
 <style>
 .button {
@@ -95,7 +97,40 @@ crossorigin="anonymous"></script>
 </form></center>
 
 <center>
+
+
+
+
+<div id="23andmemodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="boxed">
+        <center><font face="Arial">Please Sign In Through 23andMe</font></center>
+    </div>
+    </div>
+  </div>
+</div>
+
+<div id="TwittertoGenetics" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <fieldset>
+        <label for="twitter_handle"><font face="Arial">Twitter Handle:</font></label>
+        <input type="text" id="twitter_handle" name="twitter_handle" placeholder="@Harvard_Hackathon_2016" />
+        <input type="submit" value="Submit" onclick="" />
+    </fieldset>
+    </div>
+  </div>
+</div>
+
+<button id ="23metoPers" class="button button1" data-toggle="modal" data-target = "#23andmemodal">23andMe to Personality Insights</button>
+
+
 <button id ="sendToServer" class="button button1">ANALYZE</button>
+
+
+<button id ="TwittertoGenetics" class="button button1"  data-toggle="modal" data-target="#TwittertoGenetics">Twitter to Genetic Data</button>
+
 </center>
 <center>
 <button id="clickButton"></button>

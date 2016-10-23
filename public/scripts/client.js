@@ -16,7 +16,14 @@ $(document).ready(function() {
         })
     })
 
+    $('#23metoPers').on('click', function() {
+        // need to pop up a modal with 23 and me insights
+    });
 
+    $('#TwittertoGenetics').on('click', function() {
+        // need to pop up a dialog box for twitter handle
+    });
+    
 
     if (window.location.href.includes('?code=')) {
         var thisUser;
