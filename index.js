@@ -376,7 +376,7 @@ function snpMaster(dnaCode, callback){
 app.post('/send-only-genetics', function(req, res) {
     console.log('\n \n user is sending client genetic data only \n\n');
     //console.log(JSON.stringify(req));
-    console.log(JSON.stringify(req.body));
+    ///console.log(JSON.stringify(req.body));
 
 
     var snpCalls;
@@ -419,7 +419,7 @@ app.post('/send-only-genetics', function(req, res) {
 app.post('/send-only-twitter', function(req, res) {
     console.log('user is sending client genetic data only');
     //console.log(JSON.stringify(req));
-    console.log(JSON.stringify(req.body));
+    //console.log(JSON.stringify(req.body));
 
     var pi_output;
     Twitter_API(req.body.twitterHandle, function(result) {
