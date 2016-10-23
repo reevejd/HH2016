@@ -6,20 +6,23 @@
   <script src="scripts/socket.io-1.4.5.js"></script>
   <script src="scripts/client.js"></script>
 </head>
-<body>
+<body background = "background.jpg">
 
-<h1>23andMe feed me your genome</h1>
+<center><IMG SRC="Logomakr_3D2vDh.png" ALT = "bo$$" WIDTH=333 HEIGHT=98></center>
+<center><IMG SRC="utah_health_sciences.PNG" ALT="some text" WIDTH=380 HEIGHT=352></center>
 
 <script src="https://api.23andme.com/res/js/ttam-0.3.js"></script>
-<div id="wrapper">Button...</div>
+<fieldset><center><div id="wrapper"></div>
 <script>
     window.onload = function () {
         var ttam = TTAM('be256e46c1e76dd5e8c76197f9168bed');
         ttam.connectButton('wrapper', ["genomes" , "basic"]);
     };
 </script>
-
-
+</center></fieldset>
+<div class="boxed">
+<center><font face="Arial">Please Sign In Through 23andMe</font></center>
+</div>
 </body>
 
 </html>
