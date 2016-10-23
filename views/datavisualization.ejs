@@ -9,9 +9,17 @@
     <script src="https://code.highcharts.com/highcharts.js"></script>
 
     <script>
+    var colours = [
+      ['#3498db', '#27ae60'],
+      ['#9b59b6', '#e74c3c'],
+      ['#f1c40f', '#d35400'],
+      ['#ecf0f1', '#2c3e50']
+    ]
     var numCharts = 0;
+    var currIndex = -1;
     var createChart = function(snp, trait, frequency) {
       numCharts++;
+      currIndex = (currIndex++) % 4;
       var chartId = 'chart'+numCharts;
       var $div = $('<div/>').appendTo('body');
       $div.attr('id', chartId);
@@ -47,13 +55,15 @@
             name: 'Traits',
             colorByPoint: true,
             data: [{
-                name: trait,
+                name: 'Has ' + trait,
                 y: frequency*100,
                 sliced: true,
-                selected: true
+                selected: true,
+                color: colours[currIndex]
             }, {
-                name: 'Not ' + trait,
-                y: 100-frequency*100
+                name: 'Doesn\'t have ' + trait,
+                y: 100-frequency*100,
+                color: colours[currIndex]
             }]
         }]
       });
@@ -68,6 +78,11 @@
 
       createChart('snpName', 'traitName', 0.734);
       createChart('snpName2', 'traitName2', 0.6);
+      createChart('snpName2', 'traitName2', 0.6);
+      createChart('snpName2', 'traitName2', 0.6);
+      createChart('snpName2', 'traitName2', 0.6);
+      createChart('snpName2', 'traitName2', 0.6);
+
 
         
     });
@@ -77,6 +92,5 @@
 
   </head>
   <body>
-    <div id="testchart" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
