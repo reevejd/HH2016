@@ -369,7 +369,7 @@ function snpMaster(dnaCode, callback){
     });
 }//end dnaMaster
 
-app.post('/send-only-genetics', function(req, res, next) {
+app.post('/send-only-genetics', function(req, res) {
     console.log('\n \n user is sending client genetic data only \n\n');
     //console.log(JSON.stringify(req));
     console.log(JSON.stringify(req.body));
