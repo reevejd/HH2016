@@ -260,7 +260,12 @@ var snpToTrait = function(location, basepair) {
                     console.log('Users with this snp: ' + users);
                     
                     /////// COPIED AND PASTED FROM ABOVE .. NEED TO CHECK
-
+                    var userList = "";
+                    for (var i = 0; i < users.length; i++ ) {
+                        userList += "'" + users[i] + "', "
+                    }
+                    userList = userList.substr(0, userList.length -2);
+                    console.log('userList: ' + userList)
                     if (userList == "" || userList.length < 2) {console.log('early callback'); callback(true, true, false);} else {
                         
                         console.log('userList in function: ' + userList);
