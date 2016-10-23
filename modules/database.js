@@ -238,8 +238,8 @@ var TraitstoDNA = function(traits) {
 var snpToTrait = function(location, basepair) {
     pg.connect(process.env.DATABASE_URL, function(err, client) {
         if (err) throw err;
-        console.log('SELECT idUser FROM Ids_Snps INNER JOIN traits ON (Ids_Snps.idUser = traits.idUser) WHERE Ids_Snps.location = \'' + location + '\' AND Ids_Snps.basepair =\'' + basepair + '\'');
-        client.query('SELECT idUser FROM Ids_Snps INNER JOIN traits ON (Ids_Snps.idUser = traits.idUser) WHERE Ids_Snps.location = \'' + location + '\' AND Ids_Snps.basepair =\'' + basepair + '\'', function (err, result) {
+        console.log('SELECT Ids_Snps.idUser FROM Ids_Snps INNER JOIN userTraits ON (Ids_Snps.idUser = userTraits.idUser) WHERE Ids_Snps.location = \'' + location + '\' AND Ids_Snps.basepair =\'' + basepair + '\'');
+        client.query('SELECT Ids_Snps.idUser FROM Ids_Snps INNER JOIN userTraits ON (Ids_Snps.idUser = userTraits.idUser) WHERE Ids_Snps.location = \'' + location + '\' AND Ids_Snps.basepair =\'' + basepair + '\'', function (err, result) {
             
             client.end(function (err) {
                 if (err) throw err;
