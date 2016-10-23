@@ -41,7 +41,7 @@
             text: 'Proportion of Users with ' + snp + ' who have the personality trait: ' + trait
         },
         tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            pointFormat: '<b>{point.percentage:.1f}%</b>'
         },
         plotOptions: {
             pie: {
@@ -60,13 +60,13 @@
             name: 'Traits',
             colorByPoint: true,
             data: [{
-                name: 'Has ' + trait,
+                name: 'non-' + trait,
                 y: frequency*100,
                 sliced: true,
                 selected: true,
                 color: colours[currIndex][0]
             }, {
-                name: 'Doesn\'t have ' + trait,
+                name:  trait,
                 y: 100-frequency*100,
                 color: colours[currIndex][1]
             }]
