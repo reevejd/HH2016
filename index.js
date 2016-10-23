@@ -405,7 +405,6 @@ app.post('/send-only-genetics', function(req, res) {
                           if(results){
                             var DNAtoTraitsAssociations = results;
         
-                             res.send(true);
                             
                           }
 
@@ -413,6 +412,8 @@ app.post('/send-only-genetics', function(req, res) {
                         //console.log(info);
           }
         })
+      res.send(true);
+
 });//end only genetics
 
 app.post('/send-only-twitter', function(req, res) {
