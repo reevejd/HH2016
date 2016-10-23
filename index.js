@@ -190,32 +190,6 @@ app.post('/sim', function(req, res) {
   db.insertUser(req.body.data);
 })
 
-
-app.post('/test', function(req, res) {
-    console.log('user clicked button');
-    //console.log(JSON.stringify(req));
-    //console.log(JSON.stringify(req.body));
-    //console.log(JSON.stringify(req.body.data1));
-
-    var info = {
-      id: "user_id_here",
-	    geneticData: {
-        "snp1location": "AT",
-        "snp2location": "CG",
-	    },
-      traits: ["likes to read", "likes movies"]
-    }
-
-    //db.insertUser(info);
-    //console.log(JSON.stringify(db.getAssociations(['likes to read', 'likes movies', 'likes nothing'], 'TraitstoDNA')));
-    var testData = {
-      "snp1location": "AT",
-      "id": "fakeid"
-    }
-    //console.log(JSON.stringify(db.getAssociations(testData, "DNAtoTraits")));
-    res.send({status: "Success"});
-});
-
 app.post('/send-to-server', function(req, res) {
     console.log('user is sending client data');
     //console.log(JSON.stringify(req));
@@ -428,7 +402,7 @@ app.post('/send-only-genetics', function(req, res, next) {
                         db.getAssociations(info, "DNAtoTraits", function(results) {
                           if(results){
                             var DNAtoTraitsAssociations = results;
-                            res.render('datavisualization', {
+                            app.render('datavisualization', {
                               genomicData: DNAtoTraitsAssociations
                             })
                           }
