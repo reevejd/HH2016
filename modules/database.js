@@ -183,12 +183,9 @@ var TraitstoDNA = function(traits, callback) {
 }
 
 var snpToTrait = function(location, basepair, callback) {
-    pg.connect(process.env.DATABASE_URL, function(err, client) {
-        if (err) throw err;
-        console.log('SELECT Ids_Snps.idUser FROM Ids_Snps INNER JOIN userTraits ON (Ids_Snps.idUser = userTraits.idUser) WHERE Ids_Snps.location = \'' + location + '\' AND Ids_Snps.basepair =\'' + basepair + '\'');
-        client.query('SELECT Ids_Snps.idUser FROM Ids_Snps INNER JOIN userTraits ON (Ids_Snps.idUser = userTraits.idUser) WHERE Ids_Snps.location = \'' + location + '\' AND Ids_Snps.basepair =\'' + basepair + '\'', function (err, result) {
+    pool.query('SELECT Ids_Snps.idUser FROM Ids_Snps INNER JOIN userTraits ON (Ids_Snps.idUser = userTraits.idUser) WHERE Ids_Snps.location = \'' + location + '\' AND Ids_Snps.basepair =\'' + basepair + '\'', function (err, result) {
 
-            client.end(function (err) {
+            
                 if (err) throw err;
 
                 else if (result) {
@@ -216,35 +213,30 @@ var snpToTrait = function(location, basepair, callback) {
                     if (userList == "" || userList.length < 2) {console.log('early callback'); callback(true, true, false);} else {
 
                         console.log('userList in function: ' + userList);
-                        pg.connect(process.env.DATABASE_URL, function(err, client) {
-                            if (err) throw err;
-                            console.log('\nSELECT DISTINCT trait from userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE userTraits.idUser IN (' + userList + ')\n');
-                            client.query('SELECT DISTINCT trait from userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE userTraits.idUser IN (' + userList + ')', function(err, result) {
-                                if (err) console.log(err);
+                        pool.query('SELECT DISTINCT trait from userTraits INNER JOIN traits ON (userTraits.idTrait = traits.idTrait) WHERE userTraits.idUser IN (' + userList + ')', function(err, result) {
+                            if (err) console.log(err);
 
-                                client.end(function (err) {
-                                    if (err) {
-                                        console.log(err);
-                                    } else if (result) {
-                                        console.log('\n trait results:');
-                                        console.log(JSON.stringify(result));
+                            
+                            if (result) {
+                                console.log('\n trait results:');
+                                console.log(JSON.stringify(result));
 
-                                        for (var i = 0; i < result.rows.length; i++) {
-                                            if (traitFrequencies[result.rows[i].trait]) {
-                                                traitFrequencies[result.rows[i].trait]++
-                                            } else {
-                                                traitFrequencies[result.rows[i].trait] = 1;
-                                            }
-                                        }
-
-                                        console.log('traitFrequencies for '+location + '@' + basepair+':\n')
-                                        console.log(JSON.stringify(traitFrequencies));
-
-                                        callback(location, basepair, traitFrequencies);
+                                for (var i = 0; i < result.rows.length; i++) {
+                                    if (traitFrequencies[result.rows[i].trait]) {
+                                        traitFrequencies[result.rows[i].trait]++
+                                    } else {
+                                        traitFrequencies[result.rows[i].trait] = 1;
                                     }
-                                })
+                                }
 
-                            });
+                                console.log('traitFrequencies for '+location + '@' + basepair+':\n')
+                                console.log(JSON.stringify(traitFrequencies));
+
+                                callback(location, basepair, traitFrequencies);
+                            }
+                                
+
+                            
                             // snpFrequencies[result.rows[i].iduser] --> snpFrequencies[result.rows[i].basepair + '@' + result.rows[i].location]
 
 
@@ -254,8 +246,7 @@ var snpToTrait = function(location, basepair, callback) {
 
                 }
             });
-        });
-    });
+  
 }
 
 var DNAtoTraits = function(snps, callback) {
