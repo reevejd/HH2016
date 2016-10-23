@@ -189,7 +189,7 @@ app.post('/sim', function(req, res) {
 app.post('/test', function(req, res) {
     console.log('user clicked button');
     //console.log(JSON.stringify(req));
-    console.log(JSON.stringify(req.body));
+    //console.log(JSON.stringify(req.body));
     //console.log(JSON.stringify(req.body.data1));
 
     var info = {
@@ -207,7 +207,7 @@ app.post('/test', function(req, res) {
       "snp1location": "AT",
       "id": "fakeid"
     }
-    console.log(JSON.stringify(db.getAssociations(testData, "DNAtoTraits")));
+    //console.log(JSON.stringify(db.getAssociations(testData, "DNAtoTraits")));
     res.send({status: "Success"});
 });
 

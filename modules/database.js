@@ -110,14 +110,15 @@ var associateUserTraits = function(id, traits) {
 
 exports.insertUser = function(userJson) {
     // need to insert into traits first
-    console.log('entered insertuser');
+    console.log('entered insertuser \n________\n');
     console.log(JSON.stringify(userJson));
+    console.log('_________ \n\n')
     
     insertSnps(userJson.id, userJson.geneticData);
     insertTraits(userJson.traits);
     setTimeout(function() {
         associateUserTraits(userJson.id, userJson.traits);
-    }, 2000); // figure out a better way later
+    }, 3000); // figure out a better way later
     // insertTraits(userJson.id, userJson.traits, function(finished) {
     //     if (finished) {
 
@@ -126,9 +127,7 @@ exports.insertUser = function(userJson) {
 }
 
 
-var DNAtoTraits = function(userJSON) {
-    // takes snps, makes inferences about personality.
-}
+
 
 var TraittoDNA = function(trait, callback) {
     pg.connect(process.env.DATABASE_URL, function(err, client) {
