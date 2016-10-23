@@ -36,6 +36,11 @@ app.get('/ttam', function(req, res) {
 
 var accessToken;
 var profileID;
+
+app.get('/datavisualization', function (req, res) {
+  res.render('datavisualization');
+});
+
 app.get('/genometoken', function(req, res) {
     var accessToken;
     console.log(req.query.code);
