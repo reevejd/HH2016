@@ -24,9 +24,13 @@
       var chartId = 'chart'+numCharts;
       var $div = $('<div/>').appendTo('body');
       $div.attr('id', chartId);
+      $div.attr('style', 'margin-bottom: 60px;')
 
 
       $('#'+chartId).highcharts({
+        credits: {
+          enabled: false
+        }
         chart: {
             plotBackgroundColor: null,
             plotBorderWidth: null,
