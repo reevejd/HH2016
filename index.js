@@ -104,7 +104,7 @@ app.post("/", function (req, res) {
 
 
 
-function Twitter_API(twitter_handle_input){
+function Twitter_API(twitter_handle_input, callback){
 //Get twitter information
 var Twitter = require('twitter');
 
@@ -138,12 +138,16 @@ client.get('statuses/user_timeline', params, function(error, tweets, response) {
     }//end for loop
     text_tweets = text_tweets.replace(/[^\w\d\s]/g, "") //filter special char
     //console.log(text_tweets)
-    Watson_API(text_tweets)
+    Watson_API(text_tweets, function(result) {
+      if (result) {
+        callback(result);
+      }
+    });
   }//end of else statement
 });//end of glient.get statement
 }//end of function
 
-function Watson_API(twitter_text_input){
+function Watson_API(twitter_text_input, callback){
 //initialize and authenticate watson PI
 var PersonalityInsightsV3 = require('watson-developer-cloud/personality-insights/v3');
 var watson = require('watson-developer-cloud/personality-insights/v3');
@@ -171,7 +175,8 @@ personality_insights.profile(params, function(error, response) {
     console.log('error:', error);
   else
     //console.log(JSON.stringify(response, null, 2));
-    console.log(response);
+    //console.log(response);
+     callback(response);
   });
 }//end of function
 
@@ -247,12 +252,36 @@ app.post('/send-to-server', function(req, res) {
                   console.log(response.statusCode, body);
                   body = JSON.parse(body);
                   console.log(body.profiles[0].id);
+
+                  request({
+                      url: 'https://api.23andme.com/1/genotypes/' + body.profiles[0].id + '/?locations=rs2770296%20rs927544%20rs731779%20rs7333412%20rs3803189%20rs1923884%20rs1923885%20rs2296972%20rs1328674%20rs9316235%20rs582385%20rs9534505%20rs9534507%20rs4941573%20rs2296973%20rs2070037%20rs17289394%20rs4142900', //URL to hit
+                      method: 'GET', //Specify the method
+                      headers: { //We can define headers too
+                          'Authorization': 'Bearer' + ' ' + accessToken
+                      }
+                  }, function(error, response, body){
+                      if(error) {
+                          console.log(error);
+                      } else {
+                          //console.log(response.statusCode, body);
+                          body = JSON.parse(body);
+                          console.log(body.rs927544);
+                      }
+                  });
               }
           });
         }
     });
 
-    Twitter_API(req.body.twitterHandle);
+    var pi_output;
+    Twitter_API(req.body.twitterHandle, function(result) {
+      if (result) {
+        pi_output = result;
+        console.log(pi_output.personality[0].name);
+        console.log(pi_output.personality[0].percentile);
+      }
+    })
+
 
     res.send({status: "Success"});
 });
