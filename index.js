@@ -37,6 +37,10 @@ app.get('/ttam', function(req, res) {
 var accessToken;
 var profileID;
 
+app.get('/datavisualization', function(req, res) {
+  res.render('datavisualization');
+})
+
 app.post('/datavisualization', function (req, res) {
   res.render('datavisualization', 
     req.body.data
@@ -403,8 +407,7 @@ app.post('/send-only-genetics', function(req, res) {
                         //db.insertUser(info);//greatness for genetics
                         db.getAssociations(info, "DNAtoTraits", function(results) {
                           if(results){
-                            var DNAtoTraitsAssociations = results;
-        
+                            res.send(results);
                             
                           }
 
@@ -412,8 +415,6 @@ app.post('/send-only-genetics', function(req, res) {
                         //console.log(info);
           }
         })
-      res.send(true);
-
 });//end only genetics
 
 app.post('/send-only-twitter', function(req, res) {
