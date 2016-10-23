@@ -73,11 +73,14 @@
 
       // for each trait, going to plot frequency
 
-      if (<%- genomicData %>) {
-        // create custom charts
-        genomicData = <%- JSON.stringify(genomicData) %>;
-        console.log(genomicData);
-      } else {
+
+        <% if (typeof genomicData == 'object' && genomicData) { %>
+              // create custom charts
+              genomicData = JSON.stringify(genomicData);
+              console.log(genomicData);
+        <% } %>
+       
+        else {
         //display these charts for testing
         createChart('snpName', 'traitName', 0.734);
         createChart('snpName2', 'traitName2', 0.6);
