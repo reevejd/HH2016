@@ -235,7 +235,7 @@ var TraitstoDNA = function(traits) {
     }
 }
 
-var snpToTrait = function(location, basepair) {
+var snpToTrait = function(location, basepair, callback) {
     pg.connect(process.env.DATABASE_URL, function(err, client) {
         if (err) throw err;
         console.log('SELECT Ids_Snps.idUser FROM Ids_Snps INNER JOIN userTraits ON (Ids_Snps.idUser = userTraits.idUser) WHERE Ids_Snps.location = \'' + location + '\' AND Ids_Snps.basepair =\'' + basepair + '\'');
