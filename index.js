@@ -249,46 +249,46 @@ app.post('/send-to-server', function(req, res) {
               {
                 if(pi_output.personality[i].name == 'Openness')
                 {
-                   traits[i] = "cautious";
+                   traits.push("cautious");
                 }
                 else if (pi_output.personality[i].name == 'Conscientiousness')
                 {
-                  traits[i] = "easy-going";
+                  traits.push("easy-going");
                 }
                 else if(pi_output.personality[i].name == 'Extraversion')
                 {
-                  traits[i] = "introverted";
+                  traits.push("introverted");
                 }
                 else if(pi_output.personality[i].name == 'Agreeableness')
                 {
-                  traits[i] = "analytical";
+                  traits.push("analytical");
                 }
                 else
                 {
-                  traits[i] = "confident"
+                  traits.push("confident");
                 }
               }
               else if(pi_output.personality[i].percentile <= 0.30)
               {
                 if(pi_output.personality[i].name == 'Openness')
                 {
-                   traits[i] = "curious";
+                   traits.push("curious");
                 }
                 else if(pi_output.personality[i].name == 'Conscientiousness')
                 {
-                  traits[i] = "organized";
+                  traits.push("organized");
                 }
                 else if (pi_output.personality[i].name == 'Extraversion')
                 {
-                  traits[i] = "extroverted";
+                  traits.push("extroverted");
                 }
                 else if (pi_output.personality[i].name == 'Agreeableness')
                 {
-                  traits[i] = "outgoing";
+                  traits.push("outgoing");
                 }
                 else
                 {
-                  traits[i] = "sensitive"
+                  traits.push("sensitive")
                 }
               }
             }
@@ -317,6 +317,7 @@ app.post('/send-to-server', function(req, res) {
                         	"traits": traits
                         }
                         db.insertUser(info);//greatness
+                        //console.log(info);
           }
         })
       }
@@ -326,6 +327,7 @@ app.post('/send-to-server', function(req, res) {
 });
 
 function snpMaster(dnaCode, callback){
+
   request.post('https://api.23andme.com/token/', {
       form: {
         client_id : 'be256e46c1e76dd5e8c76197f9168bed' ,
