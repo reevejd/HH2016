@@ -290,7 +290,7 @@ var snpToTrait = function(location, basepair, callback) {
                                             }
                                         }
                                         
-                                        console.log('snpFrequencies for '+location + '@' + basepair+':\n')
+                                        console.log('traitFrequencies for '+location + '@' + basepair+':\n')
                                         console.log(JSON.stringify(traitFrequencies));
 
                                         callback(location, basepair, traitFrequencies);
@@ -325,7 +325,7 @@ var DNAtoTraits = function(snps) {
                     allTraitFrequencies[location + "@" + basepair] = trait;
                 }
                 counter++;
-
+                console.log('counter, snps.length', counter, snps.length);
                 if (counter = snps.length) {
                     console.log ('all traits freqs: ' + JSON.stringify(allTraitFrequencies));
                     return allTraitFrequencies;
