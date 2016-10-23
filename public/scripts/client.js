@@ -17,7 +17,7 @@ $(document).ready(function() {
 
     $('#23metoPers').on('click', function() {
         // need to pop up a modal with 23 and me insights
-        console.log('Sending to on genetics');
+        console.log('Sending to only genetics');
         $.ajax({
             method: "POST",
             url: "/send-only-genetics",
