@@ -335,10 +335,10 @@ exports.insertUser = function(userJson) {
     console.log('_________ \n\n')
     
     insertSnps(userJson.id, userJson.geneticData);
-    insertTraits(userJson.traits);
-    setTimeout(function() {
-        associateUserTraits(userJson.id, userJson.traits);
-    }, 3000); // figure out a better way later
+    //insertTraits(userJson.traits);
+    //setTimeout(function() {
+    //    associateUserTraits(userJson.id, userJson.traits);
+    //}, 3000); // figure out a better way later
     // insertTraits(userJson.id, userJson.traits, function(finished) {
     //     if (finished) {
 
