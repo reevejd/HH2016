@@ -23,6 +23,13 @@ $(document).ready(function() {
             url: "/send-only-genetics",
             data: {
                 code: getCookie("thisUser")
+            },
+            success: function(data) {
+                $.ajax({
+                    method: "POST",
+                    url: "/datavisualization",
+                    data: data
+                })
             }
         });
     });

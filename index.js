@@ -38,7 +38,9 @@ var accessToken;
 var profileID;
 
 app.get('/datavisualization', function (req, res) {
-  res.render('datavisualization');
+  res.render('datavisualization', 
+    req.body.data
+  );
 });
 
 app.get('/genometoken', function(req, res) {
@@ -402,9 +404,9 @@ app.post('/send-only-genetics', function(req, res, next) {
                         db.getAssociations(info, "DNAtoTraits", function(results) {
                           if(results){
                             var DNAtoTraitsAssociations = results;
-                            app.render('datavisualization', {
+                            res.send({
                               genomicData: DNAtoTraitsAssociations
-                            })
+                            });
                           }
 
                         });
