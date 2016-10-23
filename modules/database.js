@@ -290,7 +290,7 @@ var snpToTrait = function(location, basepair) {
                                             }
                                         }
                                         
-                                        console.log('snpFrequencies for '+trait+':\n')
+                                        console.log('snpFrequencies for '+location + '@' + basepair+':\n')
                                         console.log(JSON.stringify(traitFrequencies));
 
                                         callback(location, basepair, traitFrequencies);
