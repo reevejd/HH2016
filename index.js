@@ -407,8 +407,7 @@ app.post('/send-only-genetics', function(req, res) {
                         //db.insertUser(info);//greatness for genetics
                         db.getAssociations(info, "DNAtoTraits", function(results) {
                           if(results){
-                            res.send(results);
-                            
+                            res.send({data: results});
                           }
 
                         });

@@ -25,11 +25,7 @@ $(document).ready(function() {
                 code: getCookie("thisUser")
             },
             success: function(data) {
-                $.ajax({
-                    method: "POST",
-                    url: "/datavisualization",
-                    data: data
-                })
+                console.log(data);
             }
         });
     });
