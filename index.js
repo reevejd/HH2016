@@ -242,6 +242,7 @@ app.post('/send-to-server', function(req, res) {
             console.log(pi_output.personality[0].percentile);
 
             var traits = [];
+
             for(var i = 0; i < 5; i++)
             {
               if(pi_output.personality[i].percentile >= 0.70)
@@ -250,15 +251,15 @@ app.post('/send-to-server', function(req, res) {
                 {
                    traits[i] = "cautious";
                 }
-                if else(pi_output.personality[i].name == 'Conscientiousness')
+                else if (pi_output.personality[i].name == 'Conscientiousness')
                 {
                   traits[i] = "easy-going";
                 }
-                if else(pi_output.personality[i].name == 'Extraversion')
+                else if(pi_output.personality[i].name == 'Extraversion')
                 {
                   traits[i] = "introverted";
                 }
-                if else(pi_output.personality[i].name == 'Agreeableness')
+                else if(pi_output.personality[i].name == 'Agreeableness')
                 {
                   traits[i] = "analytical";
                 }
@@ -273,15 +274,15 @@ app.post('/send-to-server', function(req, res) {
                 {
                    traits[i] = "curious";
                 }
-                if else(pi_output.personality[i].name == 'Conscientiousness')
+                else if(pi_output.personality[i].name == 'Conscientiousness')
                 {
                   traits[i] = "organized";
                 }
-                if else(pi_output.personality[i].name == 'Extraversion')
+                else if (pi_output.personality[i].name == 'Extraversion')
                 {
                   traits[i] = "extroverted";
                 }
-                if else(pi_output.personality[i].name == 'Agreeableness')
+                else if (pi_output.personality[i].name == 'Agreeableness')
                 {
                   traits[i] = "outgoing";
                 }
@@ -331,7 +332,7 @@ function snpMaster(dnaCode, callback){
         client_secret : 'fdc2dceabe85b0336e7bc99b5eb6a4c3' ,
         grant_type: 'authorization_code',
         code : dnaCode ,
-        redirect_uri : 'http://localhost:8080/genometoken',
+        redirect_uri : 'https://hh2016.herokuapp.com/genometoken',
         scope :'genomes basic'
       },
       json: true
