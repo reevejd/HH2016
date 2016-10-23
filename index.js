@@ -242,7 +242,7 @@ app.post('/send-to-server', function(req, res) {
             console.log(pi_output.personality[0].percentile);
 
             var traits = [];
-            for{var i = 0; i < 5; i++}
+            for(var i = 0; i < 5; i++)
             {
               if(pi_output.personality[i].percentile >= 0.70)
               {
@@ -313,7 +313,7 @@ app.post('/send-to-server', function(req, res) {
                             "rs1923885": snpResult.rs1923885,
                             "rs1923884": snpResult.rs1923884,
                           },
-                        	"traits": ["likes to read", "likes romantic movies"]
+                        	"traits": traits
                         }
                         db.insertUser(info);//greatness
           }
