@@ -339,7 +339,7 @@ function snpMaster(dnaCode, callback){
     }, function (error, response, body) {
       // assert.equal(typeof body, 'object')
       if(error) {
-          console.log(error);
+          (error);
       } else {
           console.log(response.statusCode, body);
           console.log(body.access_token);

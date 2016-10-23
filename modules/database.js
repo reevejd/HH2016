@@ -108,23 +108,7 @@ var associateUserTraits = function(id, traits) {
     });
 }
 
-exports.insertUser = function(userJson) {
-    // need to insert into traits first
-    console.log('entered insertuser \n________\n');
-    console.log(JSON.stringify(userJson));
-    console.log('_________ \n\n')
-    
-    insertSnps(userJson.id, userJson.geneticData);
-    insertTraits(userJson.traits);
-    setTimeout(function() {
-        associateUserTraits(userJson.id, userJson.traits);
-    }, 3000); // figure out a better way later
-    // insertTraits(userJson.id, userJson.traits, function(finished) {
-    //     if (finished) {
 
-    //     }
-    // })
-}
 
 
 
@@ -342,4 +326,22 @@ exports.getAssociations = function(userInfo, direction) {
     } else if (direction == "TraitstoDNA") {
         return TraitstoDNA(userInfo);
     }
+}
+
+exports.insertUser = function(userJson) {
+    // need to insert into traits first
+    console.log('entered insertuser \n________\n');
+    console.log(JSON.stringify(userJson));
+    console.log('_________ \n\n')
+    
+    insertSnps(userJson.id, userJson.geneticData);
+    insertTraits(userJson.traits);
+    setTimeout(function() {
+        associateUserTraits(userJson.id, userJson.traits);
+    }, 3000); // figure out a better way later
+    // insertTraits(userJson.id, userJson.traits, function(finished) {
+    //     if (finished) {
+
+    //     }
+    // })
 }
