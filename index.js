@@ -427,7 +427,12 @@ app.post('/send-only-genetics', function(req, res) {
                           }
               }
                         //db.insertUser(info);//greatness for genetics
-                        console.log(JSON.stringify(db.getAssociations(info, "DNAtoTraits")));
+                        db.getAssociations(info, "DNAtoTraits", function(results) {
+                          if(results){
+                            var DNAtoTraitsAssociations = results;
+                          }
+
+                        });
                         //console.log(info);
           }
         })
